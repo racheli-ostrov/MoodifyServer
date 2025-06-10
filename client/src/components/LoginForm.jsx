@@ -13,7 +13,7 @@ export default function LoginForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const success = await login(username, password);
-    if (success) navigate("/");
+    if (success) navigate("/home");;
   };
 
   return (

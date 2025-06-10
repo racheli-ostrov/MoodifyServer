@@ -15,7 +15,7 @@ export default function RegisterForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const success = await register(username, password, email, name);
-    if (success) navigate("/");
+    if (success) navigate("/home");;
   };
 
   return (

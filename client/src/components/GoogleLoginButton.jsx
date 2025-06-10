@@ -18,7 +18,7 @@ const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
     const handleSubmit = async (e) => {
     e.preventDefault();
     const success = await register(username, password, email, name);
-    if (success) navigate("/");
+    if (success) navigate("/home");;
   };
 
 //   export default function RegisterForm() {
