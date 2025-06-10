@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Home from "../src/pages/Home/Home";
@@ -19,9 +19,9 @@ export default function App() {
   return (
     <GoogleOAuthProvider clientId={clientId}>
       <Router>
-        {/* <Navbar /> */}
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Navigate to="/login" />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/playlists" element={<Playlists />} />
