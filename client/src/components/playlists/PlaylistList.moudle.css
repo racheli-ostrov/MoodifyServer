@@ -1,0 +1,254 @@
+.playlist-page {
+  background: linear-gradient(120deg, #1a1a1a, #2e2e2e);
+  color: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+}
+
+.playlist-title {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  font-weight: bold;
+}
+
+.mood-group {
+  margin-bottom: 2rem;
+}
+
+.playlist-group {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.playlist-card {
+  background-color: #3a3a3a;
+  padding: 1rem;
+  border-radius: 10px;
+  min-width: 180px;
+  text-align: center;
+  box-shadow: 0 0 10px #000;
+  transition: transform 0.2s;
+}
+
+.playlist-card:hover {
+  transform: scale(1.03);
+}
+
+.playlist-card button {
+  margin-top: 0.5rem;
+  background-color: #00c896;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  color: white;
+  cursor: pointer;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden; /* ביטול גלילה */
+}
+
+.page-container.no-scroll {
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.side-navbar {
+  width: 220px;
+  background-color: #0e0e0e;
+  padding: 2em 1em;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+  align-items: flex-start;
+  color: white;
+  z-index: 2;
+}
+
+.logo {
+  font-size: 1.6em;
+  margin-bottom: 1.5em;
+  color: #fff;
+  font-weight: bold;
+
+  align-items: center;
+}
+
+.side-navbar button {
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+  background: none;
+  border: none;
+  color: #ccc;
+  font-size: 1em;
+  cursor: pointer;
+  padding: 0.5em 0;
+  transition: all 0.3s;
+}
+
+.side-navbar button:hover {
+  color: #fff;
+  transform: translateX(5px);
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.colorful-bg {
+  background: radial-gradient(
+    circle at top left,
+    #ff6a00,
+    #ff9472,
+    #5f2c82,
+    #0f2027
+  );
+  background-size: 200% 200%;
+  animation: gradientShift 15s ease infinite;
+  color: white;
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.centered-content {
+  max-width: 1800px;
+  background-color: rgba(255,255,255,0.1);
+  padding: 2em;
+  border-radius: 1.5em;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+  margin: auto;
+  text-align: center;
+  width: 65%;
+  height: 75%;
+}
+
+.main-title {
+  font-size: 2.8em;
+  font-weight: 700;
+  margin-bottom: 0.5em;
+  color: #fff;
+}
+
+.subtitle {
+  font-size: 1.2em;
+  color: #eee;
+  margin-bottom: 2em;
+}
+
+form input[type="text"] {
+  padding: 0.8em;
+  border-radius: 10px;
+  border: none;
+  width: 100%;
+  margin-bottom: 1em;
+}
+
+form button {
+  padding: 0.8em;
+  border: none;
+  border-radius: 10px;
+  background: #fff;
+  color: #222;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.side-navbar.large-buttons button {
+  font-size: 1.1em;
+  padding: 1em;
+  gap: 1em;
+  text-align: left;
+  align-items: center;
+  display: flex;
+}
+
+.side-navbar.large-buttons button div {
+  line-height: 1.2;
+}
+
+.side-navbar.large-buttons .stat-number {
+  font-size: 1.6em;
+  color: #fff;
+  font-weight: bold;
+}
+
+.upload-card {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 2em;
+  border-radius: 20px;
+  max-width: 1400px;
+  margin: 2em auto 0 auto;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  width: 650px;
+  height: 55%;
+}
+
+.upload-card .camera-icon {
+  width: 20px;
+  height: auto;
+  margin-bottom: 1em;
+}
+
+.upload-card p {
+  color: #fff;
+  font-size: 1.1em;
+  margin-bottom: 1em;
+}
+
+.drop-area {
+  background: rgba(255,255,255,0.1);
+  padding: 1em;
+  border: 2px dashed #ccc;
+  border-radius: 12px;
+  text-align: center;
+  transition: 0.3s ease;
+}
+
+.drop-area:hover {
+  border-color: #fff;
+}
+
+.drop-area input {
+  width: 90%;
+  padding: 0.6em;
+  border-radius: 10px;
+  border: none;
+  margin-bottom: 1em;
+}
+
+.drop-area button {
+  padding: 0.7em 1.5em;
+  background: #fff;
+  color: #222;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+}

@@ -1,0 +1,35 @@
+import { useContext } from "react";
+import { AuthContext } from "./context/AuthContext";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import Register from "./pages/Register";
+import Login from "./pages/Login";
+import Home from "../src/pages/Home/Home";
+import Playlists from "./pages/Playlists";
+import Profile from "./pages/Profile";
+import Admin from "./pages/Admin";
+import NotFound from "./pages/NotFound";
+// import Navbar from "./components/Navbar";
+
+const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
+
+export default function App() {
+  const { user } = useContext(AuthContext);
+
+  return (
+    <GoogleOAuthProvider clientId={clientId}>
+      <Router>
+        {/* <Navbar /> */}
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/playlists" element={<Playlists />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Router>
+    </GoogleOAuthProvider>
+  );
+}
