@@ -20,18 +20,22 @@ exports.getMoodFromImage = async (image_id) => {
 };
 
 
-async function getByMood(mood) {
-  const [rows] = await db.query("SELECT * FROM playlists WHERE mood = ?", [mood]);
+exports.getByMood = async (mood) => {
+  // משתמש ב-LOWER כדי לאפשר השוואה לא תלויה באותיות גדולות/קטנות
+  const [rows] = await pool.query(
+    'SELECT * FROM playlists WHERE LOWER(mood) = LOWER(?)',
+    [mood]
+  );
   return rows;
-}
-
-module.exports = {
-  getByMood,
-  // שאר הפונקציות הקיימות:
-  // getAll,
-  // getByUserId,
-  // getById,
-  // create,
-  // update,
-  // remove
 };
+
+// module.exports = {
+//   getByMood,
+//   // שאר הפונקציות הקיימות:
+//   // getAll,
+//   // getByUserId,
+//   // getById,
+//   // create,
+//   // update,
+//   // remove
+// };

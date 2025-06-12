@@ -38,7 +38,7 @@ form {
   padding: 2em;
   border-radius: 1em;
   box-shadow: 0 0 8px #eee;
-  max-width: 350px;
+  /* max-width: 350px; */
   margin: auto;
 }
 button {
@@ -64,4 +64,51 @@ td, th {
 }
 th {
   background: #e2e6ed;
+}
+
+h3{
+  color: #333;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+.pulse {
+  animation: pulse 2s infinite;
+}
+
+@keyframes fade {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+.fade {
+  animation: fade 3s infinite;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
+.shake {
+  animation: shake 0.6s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+.bounce {
+  animation: bounce 1.5s infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+.float {
+  animation: float 3s ease-in-out infinite;
 }
