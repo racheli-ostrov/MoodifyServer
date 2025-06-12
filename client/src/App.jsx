@@ -9,6 +9,7 @@ import Playlists from "./pages/Playlists";
 import Profile from "./pages/Profile";
 import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
+import Photos from "./pages/Photos";
 // import Navbar from "./components/Navbar";
 
 const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
@@ -28,6 +29,7 @@ export default function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="*" element={<NotFound />} />
+          <Route path="/photos" element={<Photos />} />
         </Routes>
       </Router>
     </GoogleOAuthProvider>

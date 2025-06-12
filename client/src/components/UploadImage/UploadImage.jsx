@@ -140,7 +140,10 @@
 //     </form>
 //   );
 // }
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
+import Webcam from "react-webcam";
 import api from "../../services/api";
 import PlaylistDetails from "../playlists/PlaylistDetails";
 
@@ -150,6 +153,10 @@ export default function UploadImage() {
   const [loading, setLoading] = useState(false);
   const [mood, setMood] = useState(null);
   const [playlists, setPlaylists] = useState([]);
+  const [useCamera, setUseCamera] = useState(false);
+  const webcamRef = useRef(null);
+    const { user } = useContext(AuthContext); // הוסף זאת
+
 
   const handleUpload = async (e) => {
     e.preventDefault();
@@ -162,6 +169,8 @@ export default function UploadImage() {
     try {
       const res = await api.post("/images/upload", formData, {
         headers: { "Content-Type": "multipart/form-data" },
+                  Authorization: `Bearer ${user.token}`, // הוסף את זה!
+
       });
       setMood(res.data.mood.trim().toLowerCase());
     } catch (err) {
@@ -181,41 +190,84 @@ export default function UploadImage() {
       setPreviewUrl(null);
     }
   };
-const fetchPlaylistsByMood = async () => {
-  try {
-    const res = await api.get(`/playlists/bymood/${mood}`);
-    if (res.data) {
-      setPlaylists([res.data]); // ← עטוף אותו במערך
-    } else {
-      alert("לא נמצא פלייליסט עבור הרגש הזה.");
+
+  // צילום מהמצלמה
+  const handleTakePhoto = () => {
+    const imageSrc = webcamRef.current.getScreenshot();
+    fetch(imageSrc)
+      .then(res => res.blob())
+      .then(blob => {
+        const file = new File([blob], "webcam.jpg", { type: "image/jpeg" });
+        setImage(file);
+        setPreviewUrl(imageSrc);
+        setUseCamera(false);
+        setMood(null);
+        setPlaylists([]);
+      });
+  };
+
+  const fetchPlaylistsByMood = async () => {
+    try {
+      const res = await api.get(`/playlists/bymood/${mood}`);
+      if (res.data) {
+        setPlaylists([res.data]); // ← עטוף אותו במערך
+      } else {
+        alert("לא נמצא פלייליסט עבור הרגש הזה.");
+      }
+    } catch (err) {
+      alert("שגיאה בקבלת הפלייליסט: " + (err?.response?.data?.error || err.message));
     }
-  } catch (err) {
-    alert("שגיאה בקבלת הפלייליסט: " + (err?.response?.data?.error || err.message));
-  }
-};
+  };
 
   return (
-    <form onSubmit={handleUpload}>
-      {/* <h2>העלה תמונה לניתוח רגש אמיתי</h2> */}
-      <input
-        type="file"
-        accept="image/*"
-        onChange={handleFileChange}
-        required
-      />
+    <form onSubmit={handleUpload} style={{ maxWidth: 40000, margin: "auto" }}>
+      <h2>העלה תמונה מהמחשב או מצלמה</h2>
+      <button
+        type="button"
+        style={{ marginBottom: 8, marginTop: 4 }}
+        onClick={() => setUseCamera((v) => !v)}
+      >
+        {useCamera ? "בחרי קובץ מהמחשב" : "צלמי תמונה"}
+      </button>
+      {useCamera ? (
+        <div style={{ marginBottom: 10 }}>
+          <Webcam
+            audio={false}
+            ref={webcamRef}
+            screenshotFormat="image/jpeg"
+            width={280}
+            height={220}
+            videoConstraints={{ facingMode: "user" }}
+            style={{ borderRadius: 8, boxShadow: "0 2px 8px #ddd" }}
+          />
+          <button
+            type="button"
+            style={{ marginTop: 8 }}
+            onClick={handleTakePhoto}
+          >
+            📸 צלמי תמונה
+          </button>
+        </div>
+      ) : (
+        <input
+          type="file"
+          accept="image/*"
+          onChange={handleFileChange}
+          required={!image}
+        />
+      )}
       {previewUrl && (
         <div style={{ margin: "1em 0" }}>
           <img
             src={previewUrl}
             alt="preview"
-            style={{ maxWidth: "200px", maxHeight: "200px", borderRadius: "8px" }}
+            style={{ maxWidth: "220px", maxHeight: "220px", borderRadius: "8px" }}
           />
         </div>
       )}
-      <button type="submit" disabled={loading}>
+      <button type="submit" disabled={loading || !image}>
         {loading ? "מעלה ומנתח..." : "נתח רגש"}
       </button>
-
       {mood && (
         <div style={{ marginTop: "1em" }}>
           <h3>הרגש שזוהה: <b>{mood}</b></h3>
@@ -224,8 +276,6 @@ const fetchPlaylistsByMood = async () => {
           </button>
         </div>
       )}
-      
-
       {playlists.length > 0 && (
         <div style={{ marginTop: "2em" }}>
           <h3>פלייליסטים תואמים:</h3>

@@ -6,11 +6,16 @@ import { useNavigate } from "react-router-dom";
 import { FaMusic, FaImages, FaListUl, FaUser } from "react-icons/fa";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
-
 export default function Home() {
+  const { setUser } = useContext(AuthContext);
   const { user } = useContext(AuthContext);
   const [playlist, setPlaylist] = useState(null);
   const navigate = useNavigate();
+  const handleLogout = () => {
+  localStorage.removeItem("user"); // מחיקת הפרטים מה־localStorage
+   setUser(null);                  // איפוס ה־context
+  navigate("/login");              // מעבר לדף התחברות
+};
 
   return (
     <div className="page-container no-scroll">
@@ -23,7 +28,7 @@ export default function Home() {
             Playlists
           </div>
         </button>
-        <button onClick={() => navigate("/images")}>
+        <button onClick={() => navigate("/photos")}>
           <FaImages />
           <div>
             <span className="stat-number">7,532</span><br />
@@ -44,6 +49,7 @@ export default function Home() {
             Pro users
           </div>
         </button>
+        <button onClick={handleLogout}>Log Out</button>
       </nav>
 
       <main className="main-content colorful-bg">

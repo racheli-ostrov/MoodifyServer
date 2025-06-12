@@ -1,28 +1,7 @@
 const playlistsService = require('../service/playlistsService');
 const songsService = require('../service/songsService');
 const router = require("express").Router();
-
-// function sampleSongs(mood) {
-//   const lib = {
-//     happy: [
-//       { title: "Happy Song", artist: "Fun Band", url: "https://youtube.com/happy" },
-//       { title: "Smiles", artist: "Sunny", url: "https://youtube.com/smiles" }
-//     ],
-//     sad: [
-//       { title: "Blue Mood", artist: "Sad Singer", url: "https://youtube.com/blue" }
-//     ],
-//     calm: [
-//       { title: "Relaxation", artist: "CalmArtist", url: "https://youtube.com/relax" }
-//     ],
-//     energetic: [
-//       { title: "Power Up", artist: "Fast Beat", url: "https://youtube.com/power" }
-//     ],
-//     romantic: [
-//       { title: "Love Tune", artist: "Romantic Singer", url: "https://youtube.com/love" }
-//     ]
-//   };
-//   return lib[mood] || lib.happy;
-// }
+const pool = require('../../db/db');
 
 exports.createPlaylist = async (req, res) => {
   const { image_id, mood, name, description } = req.body;
@@ -61,17 +40,6 @@ router.get("/bymood/:mood", async (req, res) => {
   }
 });
 
-// exports.getByMood = async (req, res) => {
-//   const mood = req.params.mood;
-//   try {
-//     const playlists = await playlistsService.getByMood(mood);
-//     res.json(playlists);
-//   } catch (err) {
-//     console.error("שגיאה בקבלת פלייליסט לפי מצב רוח:", err);
-//     res.status(500).json({ error: "שגיאה בשרת", details: err.message });
-//   }
-// };
-
 exports.getByMood = async (req, res) => {
   // ננקה את מצב הרוח מרווחים ונהפוך לאותיות קטנות
   const mood = req.params.mood.trim().toLowerCase();
@@ -94,3 +62,57 @@ exports.getByMood = async (req, res) => {
     res.status(500).json({ error: "שגיאה בשרת", details: err.message });
   }
 };
+
+exports.votePlaylist = async (req, res) => {
+  try {
+    const { id } = req.params; // playlist id
+    const { vote } = req.body; // 'like' או 'dislike'
+    const userId = req.user.id; // מהטוקן
+
+     if (vote !== "like" && vote !== "dislike")
+      return res.status(400).json({ error: "Invalid vote" });
+    // בדוק אם המשתמש כבר הצביע
+    const [rows] = await pool.query(
+      "SELECT vote FROM playlist_votes WHERE user_id = ? AND playlist_id = ?",
+      [userId, id]
+    );
+    const prevVote = rows[0]?.vote;
+
+    if (!prevVote) {
+      // הוספת הצבעה חדשה
+      await pool.query(
+        "INSERT INTO playlist_votes (user_id, playlist_id, vote) VALUES (?, ?, ?)",
+        [userId, id, vote]
+      );
+      await pool.query(
+        `UPDATE playlists SET ${vote}s = ${vote}s + 1 WHERE id = ?`,
+        [id]
+      );
+    } else if (prevVote === vote) {
+      // לחץ שוב על אותה הצבעה – לא משנים כלום
+      return res.json({ likes: playlist.likes, dislikes: playlist.dislikes });
+    } else {
+      // החליף הצבעה – מעדכנים את שתיהן
+      await pool.query(
+        "UPDATE playlist_votes SET vote = ? WHERE user_id = ? AND playlist_id = ?",
+        [vote, userId, id]
+      );
+      // מוסיפים לחדש, מורידים מישן
+      await pool.query(
+        `UPDATE playlists SET ${vote}s = ${vote}s + 1, ${prevVote}s = ${prevVote}s - 1 WHERE id = ?`,
+        [id]
+      );
+    }
+
+ // מחזירים את הערכים החדשים
+    const [playlistRows] = await pool.query(
+      "SELECT likes, dislikes FROM playlists WHERE id = ?",
+      [id]
+    );
+    res.json(playlistRows[0]);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "DB error" });
+  }
+};
+
