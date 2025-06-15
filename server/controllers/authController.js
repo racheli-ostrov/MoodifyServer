@@ -1,12 +1,11 @@
 // const albumsService = require('../services/albumsService');
-const { OAuth2Client } = require('google-auth-library');
 require('dotenv').config();
+const { OAuth2Client } = require('google-auth-library');
 const usersService = require('../service/usersService');
 const jwt = require('jsonwebtoken');
 // const pool = require('../../db/db');
 
-const client = new OAuth2Client(process.env.VITE_GOOGLE_CLIENT_ID);
-// const albumsController = {
+const client = new OAuth2Client(process.env.VITE_GOOGLE_CLIENT_ID);// const albumsController = {
 //   getAllAlbums: async (req, res) => {
 //     const { userId } = req.query;
 //     if (!userId) return res.status(400).json({ error: 'Missing userId' });
@@ -60,6 +59,43 @@ const client = new OAuth2Client(process.env.VITE_GOOGLE_CLIENT_ID);
 
 // module.exports = albumsController;
 // בקובץ: server/controllers/authController.js
-exports.googleLogin = (req, res) => {
-  res.json({ message: "Google login handler" });
+exports.googleLogin = async (req, res) => {
+  try {
+    const { token } = req.body;
+    if (!token) return res.status(400).json({ error: "Missing token" });
+
+    const ticket = await client.verifyIdToken({
+      idToken: token,
+      audience: process.env.VITE_GOOGLE_CLIENT_ID,
+    });
+
+    const payload = ticket.getPayload();
+    const { email, name } = payload;
+
+    if (!email || !name) return res.status(400).json({ error: "Invalid Google payload" });
+
+    let user = await usersService.getByEmail(email);
+    if (!user) {
+      await usersService.create({ username: email, email, name, password: null, role: "user" });
+      user = await usersService.getByEmail(email);
+    }
+
+    const jwtToken = jwt.sign(
+      { id: user.id, role: user.role },
+      process.env.JWT_SECRET,
+      { expiresIn: "7d" }
+    );
+console.log("🔑 מחזיר ללקוח:", {
+  token: jwtToken,
+  user
+});
+
+    res.json({
+      token: jwtToken,
+      user: user,
+    });
+  } catch (err) {
+    console.error("Google login error:", err);
+    res.status(500).json({ error: "Google login failed" });
+  }
 };

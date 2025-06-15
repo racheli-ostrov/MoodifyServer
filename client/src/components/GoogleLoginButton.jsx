@@ -3,7 +3,7 @@ import { AuthContext } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { GoogleLogin } from '@react-oauth/google';
 
-export default function RegisterForm() {
+export default function GoogleLoginButton() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -11,6 +11,8 @@ export default function RegisterForm() {
   const { register, googleLogin } = useContext(AuthContext);
   const navigate = useNavigate();
 
+
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     const success = await register(username, password, email, name);

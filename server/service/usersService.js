@@ -39,3 +39,21 @@ exports.getAllUsers = async () => {
   const [rows] = await pool.query('SELECT id, username, name, email, role FROM users');
   return rows;
 };
+
+exports.getByEmail= async (email) => {
+    const [rows] = await pool.query('SELECT * FROM users WHERE email = ?', [email]);
+    return rows[0] || null;
+  };
+
+  exports.create= async ({ username, email, name, password = null, role = 'user' }) => {
+    const [result] = await pool.query(
+      'INSERT INTO users (username, email, name, password, role) VALUES (?, ?, ?, ?, ?)',
+      [username, email, name, password, role]
+    );
+    return result.insertId;
+  };
+
+    exports.getById= async (id) => {
+    const [rows] = await pool.query('SELECT * FROM users WHERE id = ?', [id]);
+    return rows[0] || null;
+  };

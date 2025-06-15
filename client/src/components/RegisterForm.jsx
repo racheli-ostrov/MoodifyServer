@@ -1,14 +1,14 @@
 import { useState, useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { GoogleLogin } from '@react-oauth/google';
-import { Link } from "react-router-dom";
 
 export default function RegisterForm() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+
   const { register, googleLogin } = useContext(AuthContext);
   const navigate = useNavigate();
 
@@ -19,21 +19,51 @@ export default function RegisterForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <h2>חדש?</h2>
-      <input type="text" placeholder="שם משתמש" value={username} onChange={e=>setUsername(e.target.value)} required />
-      <input type="password" placeholder="סיסמה" value={password} onChange={e=>setPassword(e.target.value)} required />
-      <input type="text" placeholder="שם מלא" value={name} onChange={e=>setName(e.target.value)} required />
-      <input type="email" placeholder="מייל" value={email} onChange={e=>setEmail(e.target.value)} required />
+    <form onSubmit={handleSubmit} style={{ maxWidth: "400px", margin: "auto" }}>
+      <h2>הרשמה</h2>
+
+      <input
+        type="text"
+        placeholder="שם משתמש"
+        value={username}
+        onChange={(e) => setUsername(e.target.value)}
+        required
+      />
+      <input
+        type="password"
+        placeholder="סיסמה"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        required
+      />
+      <input
+        type="text"
+        placeholder="שם מלא"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        required
+      />
+      <input
+        type="email"
+        placeholder="אימייל"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        required
+      />
+
       <button type="submit">הרשם</button>
 
       <div style={{ marginTop: "1em" }}>
         כבר רשום? <Link to="/login">התחבר כאן</Link>
       </div>
 
+      <hr />
+
       <GoogleLogin
-        onSuccess={async credentialResponse => {
-          const token = credentialResponse.credential;
+        onSuccess={async (credentialResponse) => {
+    console.log("🎫 credentialResponse:", credentialResponse);
+    console.log("🧪 credential:", credentialResponse.credential);
+              const token = credentialResponse.credential;
           const success = await googleLogin(token);
           if (success) navigate("/home");
         }}
