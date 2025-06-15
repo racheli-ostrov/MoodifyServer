@@ -8,16 +8,16 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-exports.sendWelcomeMail = async (to, username) => {
-  await transporter.sendMail({
-    from: `"Moodify" <${process.env.EMAIL_USER}>`,
-    to,
-    subject: "ברוכים הבאים ל-Moodify!",
-    html: `
-      <h2>שלום ${username},</h2>
-      <p>ברוך הבא לאתר שלנו!<br>
-      שם המשתמש שלך: <b>${username}</b><br>
-      אנו מאחלים לך חוויה מהנה!</p>
-    `,
-  });
-};
+// exports.sendWelcomeMail = async (to, username) => {
+//   await transporter.sendMail({
+//     from: `"Moodify" <${process.env.EMAIL_USER}>`,
+//     to,
+//     subject: "ברוכים הבאים ל-Moodify!",
+//     html: `
+//       <h2>שלום ${username},</h2>
+//       <p>ברוך הבא לאתר שלנו!<br>
+//       שם המשתמש שלך: <b>${username}</b><br>
+//       אנו מאחלים לך חוויה מהנה!</p>
+//     `,
+//   });
+// };

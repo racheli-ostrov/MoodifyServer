@@ -23,7 +23,8 @@ export function AuthProvider({ children }) {
 
 const googleLogin = async (token) => {
   try {
-    const res = await api.post("/users/auth/google", { token }); // <-- תיקון הנתיב כאן
+    const res = await api.post("/users/auth/google", { token });
+    // const res = await api.post("/auth/google", { token });
     console.log("Google login response:", res.data);
     if (!res.data.user || !res.data.token) throw new Error("חסרים נתונים מהשרת");
     console.log("📥 תגובת השרת מגוגל:", res.data);

@@ -17,7 +17,7 @@ exports.getUserByUsername = async (username) => {
 };
 
 /**
- * יוצר משתמש חדש בטבלה
+ * יוצר משתמש חדש בטבלה (לשימוש בהרשמה רגילה)
  */
 exports.createUser = async ({ username, password, email, name, role }) => {
   try {
@@ -33,27 +33,36 @@ exports.createUser = async ({ username, password, email, name, role }) => {
 };
 
 /**
- * מחזיר את כל המשתמשים (למטרות ניהול/בדיקה)
+ * יוצר משתמש חדש עם סיסמה null (לשימוש בהרשמה עם Google)
+ */
+exports.create = async ({ username, email, name, password = null, role = 'user' }) => {
+  const [result] = await pool.query(
+    'INSERT INTO users (username, email, name, password, role) VALUES (?, ?, ?, ?, ?)',
+    [username, email, name, password, role]
+  );
+  return result.insertId;
+};
+
+/**
+ * מחזיר את כל המשתמשים
  */
 exports.getAllUsers = async () => {
   const [rows] = await pool.query('SELECT id, username, name, email, role FROM users');
   return rows;
 };
 
-exports.getByEmail= async (email) => {
-    const [rows] = await pool.query('SELECT * FROM users WHERE email = ?', [email]);
-    return rows[0] || null;
-  };
+/**
+ * מחזיר משתמש לפי מייל
+ */
+exports.getByEmail = async (email) => {
+  const [rows] = await pool.query('SELECT * FROM users WHERE email = ?', [email]);
+  return rows[0] || null;
+};
 
-  exports.create= async ({ username, email, name, password = null, role = 'user' }) => {
-    const [result] = await pool.query(
-      'INSERT INTO users (username, email, name, password, role) VALUES (?, ?, ?, ?, ?)',
-      [username, email, name, password, role]
-    );
-    return result.insertId;
-  };
-
-    exports.getById= async (id) => {
-    const [rows] = await pool.query('SELECT * FROM users WHERE id = ?', [id]);
-    return rows[0] || null;
-  };
+/**
+ * מחזיר משתמש לפי מזהה (שכפול פונקציה getUserById עם שם שונה)
+ */
+exports.getById = async (id) => {
+  const [rows] = await pool.query('SELECT * FROM users WHERE id = ?', [id]);
+  return rows[0] || null;
+};

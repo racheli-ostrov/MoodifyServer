@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { FaMusic, FaImages, FaListUl, FaUser } from "react-icons/fa";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
+
 export default function Home() {
   const { setUser } = useContext(AuthContext);
   const { user } = useContext(AuthContext);

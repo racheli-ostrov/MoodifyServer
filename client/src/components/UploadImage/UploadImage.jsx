@@ -27,7 +27,7 @@ export default function UploadImage() {
     try {
       const res = await api.post("/images/upload", formData, {
         headers: { "Content-Type": "multipart/form-data" },
-                  Authorization: `Bearer ${user.token}`, // הוסף את זה!
+                  Authorization: `Bearer ${user.token}`,
 
       });
       setMood(res.data.mood.trim().toLowerCase());
