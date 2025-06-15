@@ -8,30 +8,23 @@ export default function RegisterForm() {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const { register } = useContext(AuthContext);
+  const { register, googleLogin } = useContext(AuthContext);
   const navigate = useNavigate();
 
-const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
-
-
-
-    const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const success = await register(username, password, email, name);
-    if (success) navigate("/home");;
+    if (success) navigate("/home");
   };
-
-//   export default function RegisterForm() {
-//     const { googleLogin } = useContext(AuthContext);
-//   const navigate = useNavigate();
-// }
 
   return (
     <form onSubmit={handleSubmit}>
       <div style={{ marginTop: "1em" }}>
         <GoogleLogin
-          onSuccess={credentialResponse => {
-            console.log(credentialResponse);
+          onSuccess={async credentialResponse => {
+            const token = credentialResponse.credential;
+            const success = await googleLogin(token);
+            if (success) navigate("/home");
           }}
           onError={() => {
             alert("שגיאת התחברות עם גוגל");

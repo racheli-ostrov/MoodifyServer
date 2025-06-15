@@ -9,13 +9,13 @@ export default function RegisterForm() {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const { register } = useContext(AuthContext);
+  const { register, googleLogin } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const success = await register(username, password, email, name);
-    if (success) navigate("/home");;
+    if (success) navigate("/home");
   };
 
   return (
@@ -26,20 +26,21 @@ export default function RegisterForm() {
       <input type="text" placeholder="שם מלא" value={name} onChange={e=>setName(e.target.value)} required />
       <input type="email" placeholder="מייל" value={email} onChange={e=>setEmail(e.target.value)} required />
       <button type="submit">הרשם</button>
-      
-    <div style={{ marginTop: "1em" }}>
-      כבר רשום? <Link to="/login">התחבר כאן</Link>
-            </div>
-        <GoogleLogin
-          onSuccess={credentialResponse => {
-            // כאן תטפלי בהתחברות עם גוגל
-            console.log(credentialResponse);
-          }}
-          onError={() => {
-            alert("שגיאת התחברות עם גוגל");
-          }}
-        />
 
+      <div style={{ marginTop: "1em" }}>
+        כבר רשום? <Link to="/login">התחבר כאן</Link>
+      </div>
+
+      <GoogleLogin
+        onSuccess={async credentialResponse => {
+          const token = credentialResponse.credential;
+          const success = await googleLogin(token);
+          if (success) navigate("/home");
+        }}
+        onError={() => {
+          alert("שגיאת התחברות עם גוגל");
+        }}
+      />
     </form>
   );
 }

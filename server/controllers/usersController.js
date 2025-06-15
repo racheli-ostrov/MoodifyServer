@@ -1,6 +1,7 @@
 const usersService = require('../service/usersService');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const mailService = require('../service/mailService');
 
 exports.register = async (req, res) => {
   console.log("REGISTER REQUEST:", req.body);
@@ -22,7 +23,12 @@ exports.register = async (req, res) => {
       name,
       role
     });
-
+try {
+  await mailService.sendWelcomeMail(email, username);
+} catch (mailErr) {
+  console.error("MAIL ERROR:", mailErr.message);
+  // אפשר להמשיך בלי להכשיל את ההרשמה
+}
     res.status(201).json({ id });
   }catch (e) {
   console.error("REGISTER ERROR:", e.message);
