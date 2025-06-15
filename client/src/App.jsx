@@ -10,7 +10,6 @@ import Profile from "./pages/Profile";
 import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
 import Photos from "./pages/Photos";
-// import Navbar from "./components/Navbar";
 
 const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
