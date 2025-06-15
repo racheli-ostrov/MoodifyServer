@@ -1,5 +1,6 @@
 // const albumsService = require('../services/albumsService');
 const { OAuth2Client } = require('google-auth-library');
+require('dotenv').config();
 const usersService = require('../service/usersService');
 const jwt = require('jsonwebtoken');
 // const pool = require('../../db/db');
