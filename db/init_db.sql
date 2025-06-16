@@ -33,7 +33,7 @@ CREATE TABLE playlists (
   description TEXT,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   likes INT DEFAULT 0,
-  disLikes INT DEFAULT 0,
+  dislikes INT DEFAULT 0,
   FOREIGN KEY (user_id) REFERENCES users(id),
   FOREIGN KEY (image_id) REFERENCES images(id)
 );
@@ -103,7 +103,7 @@ INSERT INTO images (id, user_id, url, mood, created_at) VALUES
 (20,17,'https://res.cloudinary.com/dypp3nm8u/image/upload/v1749756387/boqumcd1jmrmgn8dfxj.jpg','neutral','2025-06-15 00:26:40');
 
 -- הכנסת נתונים לטבלת playlists
-INSERT INTO playlists (id, user_id, image_id, mood, name, description, created_at, likes, disLikes) VALUES
+INSERT INTO playlists (id, user_id, image_id, mood, name, description, created_at, likes, dislikes) VALUES
 (1,1,1,'happy','Admin Happy Playlist','פלייליסט שמח של אדמין','2025-06-08 22:22:09',2,0),
 (2,1,1,'surprise','ProUser Chill','רפאל עונג מסיליליפין','2025-06-08 22:22:09',0,0),
 (3,3,3,'sad','User Sad Songs','ליגריל בובע מסיליליפין','2025-06-08 22:22:09',0,1),
@@ -156,31 +156,31 @@ INSERT INTO songs (id, playlist_id, title, url) VALUES
 (39,4,'Crazy Beat','https://www.youtube.com/watch?v=RsKiplpW5uQ'),
 (40,4,'Wild Party','https://www.youtube.com/watch?v=RsKiplpW5uQ'),
 (41,4,'Hype It Up','https://www.youtube.com/watch?v=RsKiplpW5uQ'),
-(42,4,'Bounce It','https://www.youtube.com/watch?v=RsKiplpW5uQ'),
-(43,4,'Pump It','https://www.youtube.com/watch?v=RsKiplpW5uQ'),
-(44,4,'Ocean Out','https://www.youtube.com/watch?v=RsKiplpW5uQ'),
-(45,4,'Fear Song 1','https://www.youtube.com/watch?v=XLsoNdsjO1Q'),
-(46,4,'Fear Song 2','https://www.youtube.com/watch?v=C3Cj8sucz4I'),
-(47,4,'Fear Song 3','https://www.youtube.com/watch?v=F3rkl42q1qs'),
-(48,4,'Fear Song 4','https://www.youtube.com/watch?v=_j6Oa8W2dXg'),
-(49,4,'Fear Song 5','https://www.youtube.com/watch?v=LC8iJ8mJHds'),
-(50,4,'Fear Song 6','https://www.youtube.com/watch?v=CJbkl1tQnxg&pp=8gcJCdgAoTvqNStD'),
-(51,4,'Fear Song 7','https://www.youtube.com/watch?v=QbTQYk1Nyns'),
-(52,4,'Fear Song 8','https://www.youtube.com/watch?v=a0u3cYSPFcY'),
-(53,4,'Fear Song 9','https://www.youtube.com/watch?v=9kHLtWR4Pk9&pp=8gcJCdgAoTvqNStD'),
-(54,4,'Fear Song 10','https://www.youtube.com/watch?v=obJueStnckg&pp=8gcJCdgAoTvqNStD'),
-(55,4,'natural Song 1','https://www.youtube.com/watch?v=2BRAR0MCWcM'),
-(56,4,'natural Song 2','https://www.youtube.com/watch?v=20bMRr4p6bI'),
-(57,4,'natural Song 3','https://www.youtube.com/watch?v=IzseakHfbgE'),
-(58,4,'natural Song 4','https://www.youtube.com/watch?v=Lj8aBV2NdYg'),
-(59,4,'natural Song 5','https://www.youtube.com/watch?v=RkAhanUWVfY'),
-(60,4,'natural Song 6','https://www.youtube.com/watch?v=geRy3bfs5V5'),
-(61,4,'natural Song 7','https://www.youtube.com/watch?v=CKzSK3g-rq4'),
-(62,4,'natural Song 8','https://www.youtube.com/watch?v=UDEo_X7Kf4w'),
-(63,4,'natural Song 9','https://www.youtube.com/watch?v=JWRaW7rFqg'),
-(64,4,'natural Song 10','https://www.youtube.com/watch?v=ZDR3ROMCWdM'),
-(65,4,'natural Song 11','https://www.youtube.com/watch?v=CrrIUoE57AM'),
-(66,4,'natural Song 12','https://www.youtube.com/watch?v=ZDR3ROMCWdM');
+(42,6,'Bounce It','https://www.youtube.com/watch?v=RsKiplpW5uQ'),
+(43,5,'Pump It','https://www.youtube.com/watch?v=RsKiplpW5uQ'),
+(44,5,'Ocean Out','https://www.youtube.com/watch?v=RsKiplpW5uQ'),
+(45,8,'Fear Song 1','https://www.youtube.com/watch?v=XLsoNdsjO1Q'),
+(46,8,'Fear Song 2','https://www.youtube.com/watch?v=C3Cj8sucz4I'),
+(47,8,'Fear Song 3','https://www.youtube.com/watch?v=F3rkl42q1qs'),
+(48,8,'Fear Song 4','https://www.youtube.com/watch?v=_j6Oa8W2dXg'),
+(49,8,'Fear Song 5','https://www.youtube.com/watch?v=LC8iJ8mJHds'),
+(50,8,'Fear Song 6','https://www.youtube.com/watch?v=CJbkl1tQnxg&pp=8gcJCdgAoTvqNStD'),
+(51,8,'Fear Song 7','https://www.youtube.com/watch?v=QbTQYk1Nyns'),
+(52,8,'Fear Song 8','https://www.youtube.com/watch?v=a0u3cYSPFcY'),
+(53,8,'Fear Song 9','https://www.youtube.com/watch?v=9kHLtWR4Pk9&pp=8gcJCdgAoTvqNStD'),
+(54,8,'Fear Song 10','https://www.youtube.com/watch?v=obJueStnckg&pp=8gcJCdgAoTvqNStD'),
+(55,7,'natural Song 1','https://www.youtube.com/watch?v=2BRAR0MCWcM'),
+(56,7,'natural Song 2','https://www.youtube.com/watch?v=20bMRr4p6bI'),
+(57,7,'natural Song 3','https://www.youtube.com/watch?v=IzseakHfbgE'),
+(58,7,'natural Song 4','https://www.youtube.com/watch?v=Lj8aBV2NdYg'),
+(59,7,'natural Song 5','https://www.youtube.com/watch?v=RkAhanUWVfY'),
+(60,7,'natural Song 6','https://www.youtube.com/watch?v=geRy3bfs5V5'),
+(61,7,'natural Song 7','https://www.youtube.com/watch?v=CKzSK3g-rq4'),
+(62,7,'natural Song 8','https://www.youtube.com/watch?v=UDEo_X7Kf4w'),
+(63,7,'natural Song 9','https://www.youtube.com/watch?v=JWRaW7rFqg'),
+(64,7,'natural Song 10','https://www.youtube.com/watch?v=ZDR3ROMCWdM'),
+(65,7,'natural Song 11','https://www.youtube.com/watch?v=CrrIUoE57AM'),
+(66,7,'natural Song 12','https://www.youtube.com/watch?v=ZDR3ROMCWdM');
 
 -- הכנסת נתונים לטבלת playlist_votes
 INSERT INTO playlist_votes (id, user_id, playlist_id, vote) VALUES
