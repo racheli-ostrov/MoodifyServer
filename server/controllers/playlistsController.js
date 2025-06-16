@@ -6,16 +6,53 @@ const pool = require('../../db/db');
 exports.createPlaylist = async (req, res) => {
   const { image_id, mood, name, description } = req.body;
   const user_id = req.user.id;
-  let finalMood = mood;
-  if (!finalMood && image_id) finalMood = await playlistsService.getMoodFromImage(image_id);
-  if (!finalMood) return res.status(400).json({ error: 'Mood required' });
-  const playlistId = await playlistsService.createPlaylist({
-    user_id, image_id, mood: finalMood, name: name || finalMood + " Playlist", description
-  });
-  // הוספת שירים דוגמה
-  const songs = sampleSongs(finalMood);
-  for (const song of songs) await songsService.addSong({ playlist_id: playlistId, ...song });
-  res.status(201).json({ id: playlistId, songs });
+
+  try {
+    // שליפת role
+    const [roleRows] = await pool.query("SELECT role FROM users WHERE id = ?", [user_id]);
+    const role = roleRows[0]?.role || "user";
+
+    if (role !== "pro") {
+      // בדיקה: כמה פלייליסטים נוצרו היום (לפי created_at)
+      const [todayRows] = await pool.query(`
+        SELECT COUNT(*) AS count
+        FROM playlists
+        WHERE user_id = ? AND DATE(created_at) = CURDATE()
+      `, [user_id]);
+
+      const countToday = todayRows[0]?.count || 0;
+      if (countToday >= 3) {
+        return res.status(403).json({
+          error: "Free users can analyze up to 3 images/playlists per day. Upgrade to Pro for unlimited usage."
+        });
+      }
+    }
+
+    let finalMood = mood;
+    if (!finalMood && image_id)
+      finalMood = await playlistsService.getMoodFromImage(image_id);
+
+    if (!finalMood)
+      return res.status(400).json({ error: 'Mood required' });
+
+    const playlistId = await playlistsService.createPlaylist({
+      user_id,
+      image_id,
+      mood: finalMood,
+      name: name || finalMood + " Playlist",
+      description
+    });
+
+    const songs = sampleSongs(finalMood);
+    for (const song of songs)
+      await songsService.addSong({ playlist_id: playlistId, ...song });
+
+    res.status(201).json({ id: playlistId, songs });
+
+  } catch (err) {
+    console.error("❌ Error in createPlaylist:", err);
+    res.status(500).json({ error: "Server error while creating playlist" });
+  }
 };
 
 exports.getByUser = async (req, res) => {

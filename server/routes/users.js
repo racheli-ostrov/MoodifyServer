@@ -9,5 +9,6 @@ router.post('/login', usersController.login);
 router.get('/', auth, usersController.getAllUsers);
 router.get('/:id', auth, usersController.getUserById);
 router.post("/auth/google", googleLogin);
+router.post("/logout", usersController.logout);
 
 module.exports = router;

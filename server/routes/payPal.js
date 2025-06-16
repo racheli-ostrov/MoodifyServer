@@ -6,7 +6,7 @@ const paypal = require('@paypal/checkout-server-sdk');
 const client = new paypal.core.PayPalHttpClient(
   new paypal.core.SandboxEnvironment(
     process.env.PAYPAL_CLIENT_ID,
-    process.env.PAYPAL_CLIENT_SECRET
+    process.env.PAYPAL_SECRET
   )
 );
 
@@ -14,9 +14,9 @@ router.post('/create', async (req, res) => {
   const { plan } = req.body;
 
   const priceMap = {
-    "חודש": "8.00",
-    "שנה": "80.00",
-    "שנתיים": "140.00",
+    "month": "8.00",
+    "year": "80.00",
+    "Two years": "140.00",
   };
 
   const amount = priceMap[plan] || "8.00";
@@ -43,6 +43,8 @@ router.post('/create', async (req, res) => {
     res.json({ approvalUrl });
   } catch (err) {
     console.error("PayPal Error:", err);
+    console.log("plan:", plan);
+    console.log("amount:", amount);
     res.status(500).json({ error: "PayPal error" });
   }
 });

@@ -10,9 +10,9 @@ import Profile from "./pages/Profile";
 import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
 import Photos from "./pages/Photos";
-import Upgrade from "./pages/Upgrade";
-import UpgradeSuccess from "./pages/UpgradeSuccess";
-
+import Upgrade from "../src/pages/Upgrade/Upgrade";
+import UpgradeSuccess from "../src/pages/Upgrade/UpgradeSuccess";
+import UpgradeCancel from "../src/pages/Upgrade/UpgradeCanceled";
 
 
 const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
@@ -35,7 +35,7 @@ export default function App() {
           <Route path="/photos" element={<Photos />} />
           <Route path="/upgrade" element={<Upgrade />} />
           <Route path="/upgrade/success" element={<UpgradeSuccess />} />
-
+          <Route path="/upgrade/cancel" element={<UpgradeCancel />} />
         </Routes>
       </Router>
     </GoogleOAuthProvider>

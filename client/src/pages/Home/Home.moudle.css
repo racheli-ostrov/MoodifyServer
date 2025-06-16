@@ -213,3 +213,31 @@ form button {
 @keyframes spin {
   100% { transform: rotate(360deg);}
 }
+
+.user-status-badge {
+  display: inline-block;
+  padding: 0.4em 0.8em;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: 1em;
+  transition: 0.2s;
+}
+
+.user-status-badge.free {
+  background-color: #fce8e6;
+  color: #d93025;
+  border: 1px solid #d93025;
+}
+
+.user-status-badge.pro {
+  background-color: #e6f4ea;
+  color: #188038;
+  border: 1px solid #188038;
+  cursor: default;
+}
+
+h4{
+  color: black;
+}

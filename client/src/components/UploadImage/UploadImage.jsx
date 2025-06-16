@@ -1,5 +1,4 @@
-import { useState, useRef } from "react";
-import { useContext } from "react";
+import { useState, useRef, useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import Webcam from "react-webcam";
 import api from "../../services/api";
@@ -13,8 +12,9 @@ export default function UploadImage() {
   const [playlists, setPlaylists] = useState([]);
   const [useCamera, setUseCamera] = useState(false);
   const webcamRef = useRef(null);
-    const { user } = useContext(AuthContext); // הוסף זאת
-
+  const { user } = useContext(AuthContext);
+  const [showLimitModal, setShowLimitModal] = useState(false);
+  const [showImageLimitModal, setShowImageLimitModal] = useState(false);
 
   const handleUpload = async (e) => {
     e.preventDefault();
@@ -27,12 +27,19 @@ export default function UploadImage() {
     try {
       const res = await api.post("/images/upload", formData, {
         headers: { "Content-Type": "multipart/form-data" },
-                  Authorization: `Bearer ${user.token}`,
-
+        Authorization: `Bearer ${user.token}`,
       });
       setMood(res.data.mood.trim().toLowerCase());
     } catch (err) {
-      setMood("שגיאה: " + (err?.response?.data?.error || err.message));
+      const error = err?.response?.data?.error || err.message;
+      if (
+        err?.response?.status === 403 &&
+        error.includes("Free users can store up to 4 images")
+      ) {
+        setShowImageLimitModal(true);
+      } else {
+        setMood("שגיאה: " + error);
+      }
     }
     setLoading(false);
   };
@@ -49,7 +56,6 @@ export default function UploadImage() {
     }
   };
 
-  // צילום מהמצלמה
   const handleTakePhoto = () => {
     const imageSrc = webcamRef.current.getScreenshot();
     fetch(imageSrc)
@@ -68,25 +74,33 @@ export default function UploadImage() {
     try {
       const res = await api.get(`/playlists/bymood/${mood}`);
       if (res.data) {
-        setPlaylists([res.data]); // ← עטוף אותו במערך
+        setPlaylists([res.data]);
       } else {
-        alert("לא נמצא פלייליסט עבור הרגש הזה.");
+        alert("No playlist found for this mood.");
       }
     } catch (err) {
-      alert("שגיאה בקבלת הפלייליסט: " + (err?.response?.data?.error || err.message));
+      if (
+        err?.response?.status === 403 &&
+        err?.response?.data?.error?.includes("Free users can only create")
+      ) {
+        setShowLimitModal(true);
+      } else {
+        alert("Error loading playlist: " + (err?.response?.data?.error || err.message));
+      }
     }
   };
 
   return (
     <form onSubmit={handleUpload} style={{ maxWidth: 40000, margin: "auto" }}>
-      <h2>העלה תמונה מהמחשב או מצלמה</h2>
+      <h4>Upload Image from Computer or Camera</h4>
       <button
         type="button"
         style={{ marginBottom: 8, marginTop: 4 }}
         onClick={() => setUseCamera((v) => !v)}
       >
-        {useCamera ? "בחרי קובץ מהמחשב" : "צלמי תמונה"}
+        {useCamera ? "Choose from Computer" : "Take a Picture"}
       </button>
+
       {useCamera ? (
         <div style={{ marginBottom: 10 }}>
           <Webcam
@@ -103,7 +117,7 @@ export default function UploadImage() {
             style={{ marginTop: 8 }}
             onClick={handleTakePhoto}
           >
-            📸 צלמי תמונה
+            📸 Take Picture
           </button>
         </div>
       ) : (
@@ -114,6 +128,7 @@ export default function UploadImage() {
           required={!image}
         />
       )}
+
       {previewUrl && (
         <div style={{ margin: "1em 0" }}>
           <img
@@ -123,23 +138,78 @@ export default function UploadImage() {
           />
         </div>
       )}
+
       <button type="submit" disabled={loading || !image}>
-        {loading ? "מעלה ומנתח..." : "נתח רגש"}
+        {loading ? "Uploading..." : "Analyze Mood"}
       </button>
+
       {mood && (
         <div style={{ marginTop: "1em" }}>
-          <h3>הרגש שזוהה: <b>{mood}</b></h3>
+          <h3>Detected Mood: <b>{mood}</b></h3>
           <button type="button" onClick={fetchPlaylistsByMood}>
-            הצג פלייליסטים
+            Show Playlists
           </button>
         </div>
       )}
+
       {playlists.length > 0 && (
         <div style={{ marginTop: "2em" }}>
-          <h3>פלייליסטים תואמים:</h3>
+          <h3>Matching Playlists:</h3>
           {playlists.map((pl) => (
             <PlaylistDetails key={pl.id} playlist={pl} />
           ))}
+        </div>
+      )}
+
+      {showLimitModal && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h2 className="modal-title">Playlist Limit Reached</h2>
+            <p className="modal-message">
+              Free users can only create up to 3 playlists.<br />
+              Upgrade to Pro for unlimited access.
+            </p>
+            <div className="modal-buttons">
+              <button
+                className="modal-btn-primary"
+                onClick={() => window.location.href = "/upgrade"}
+              >
+                Upgrade to Pro
+              </button>
+              <button
+                className="modal-btn-secondary"
+                onClick={() => setShowLimitModal(false)}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showImageLimitModal && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h2 className="modal-title">Image Limit Reached</h2>
+            <p className="modal-message">
+              Free users can only store up to 4 images.<br />
+              Upgrade to Pro to remove this limit.
+            </p>
+            <div className="modal-buttons">
+              <button
+                className="modal-btn-primary"
+                onClick={() => window.location.href = "/upgrade"}
+              >
+                Upgrade to Pro
+              </button>
+              <button
+                className="modal-btn-secondary"
+                onClick={() => setShowImageLimitModal(false)}
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </form>

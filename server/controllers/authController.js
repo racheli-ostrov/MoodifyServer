@@ -52,15 +52,20 @@ exports.googleLogin = async (req, res) => {
       { expiresIn: "7d" }
     );
 
-    console.log("🔑 מחזיר ללקוח:", {
-      token: jwtToken,
-      user
-    });
+ res
+    .cookie("token", jwtToken, {
+      httpOnly: true,
+      sameSite: "Lax",
+      secure: false, // true אם תעברי ל-HTTPS
+      path: "/",
+      maxAge: 1000 * 60 * 60 * 6
+    })
+    .json({ user });
 
-    res.json({
-      token: jwtToken,
-      user,
-    });
+    // res.json({
+    //   token: jwtToken,
+    //   user,
+    // });
 
   } catch (err) {
     console.error("Google login error:", err);

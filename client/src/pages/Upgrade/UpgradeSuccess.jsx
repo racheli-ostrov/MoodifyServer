@@ -1,6 +1,6 @@
 import { useEffect, useContext } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { AuthContext } from "../../src/context/AuthContext";
+import { AuthContext } from "../../context/AuthContext";
 
 export default function UpgradeSuccess() {
   const navigate = useNavigate();

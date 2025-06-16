@@ -6,22 +6,55 @@ import { useNavigate } from "react-router-dom";
 import { FaMusic, FaImages, FaListUl, FaUser } from "react-icons/fa";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import api from "../../services/api";
 
 export default function Home() {
   const { setUser } = useContext(AuthContext);
   const { user } = useContext(AuthContext);
   const [playlist, setPlaylist] = useState(null);
   const navigate = useNavigate();
-  const handleLogout = () => {
-  localStorage.removeItem("user"); // מחיקת הפרטים מה־localStorage
-   setUser(null);                  // איפוס ה־context
-  navigate("/login");              // מעבר לדף התחברות
+// const handleLogout = async () => {
+//   try {
+//     await api.post("/users/logout", {}, { withCredentials: true }); // בקשת מחיקה מהשרת
+//     setUser(null); // נקה את המשתמש מה־context
+//     navigate("/login", { replace: true }); // חזרה למסך התחברות
+//   } catch (err) {
+//     console.error("שגיאה בלוגאאוט", err);
+//   }
+// };
+const handleLogout = async () => {
+  try {
+    await api.post("/users/logout", {}, { withCredentials: true });
+  } catch (err) {
+    console.error("שגיאה בלוגאאוט", err);
+  }
+
+  setUser(null);
+  navigate("/login", { replace: true }); // ניווט שמוחק את ההיסטוריה
+
+  // חוסם חזרה עם BACK
+  window.history.pushState(null, "", window.location.href);
+  window.onpopstate = () => {
+    navigate("/login", { replace: true });
+  };
 };
 
   return (
     <div className="page-container no-scroll">
       <nav className="side-navbar large-buttons">
         <h1 className="logo">📸 MOODIFY</h1>
+{user && (
+  <div
+    className={`user-status-badge ${user.role === "pro" ? "pro" : "free"}`}
+    onClick={() => {
+      if (user.role !== "pro") window.location.href = "/upgrade";
+    }}
+    title={user.role === "pro" ? "You are a Pro user" : "Click to upgrade"}
+  >
+    {user.role === "pro" ? "Pro 🌟" : "Free User"}
+  </div>
+)}
+
         <button onClick={() => navigate("/playlists")}>
           <FaListUl />
           <div>

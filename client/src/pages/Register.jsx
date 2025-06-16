@@ -1,9 +1,21 @@
 import RegisterForm from "../components/RegisterForm";
+import { useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 export default function Register() {
+  const { user } = useContext(AuthContext); // ✅ בפנים
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) navigate("/home", { replace: true });
+  }, [user]);
+
   return (
-    <div>
+    <form>
+      <div>
       <RegisterForm />
     </div>
+    </form>
   );
 }
