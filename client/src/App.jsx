@@ -12,9 +12,19 @@ import NotFound from "./pages/NotFound";
 import Photos from "./pages/Photos";
 import Upgrade from "./pages/Upgrade";
 import UpgradeSuccess from "./pages/UpgradeSuccess";
+import Sidebar from "./components/Sidebar";
 
 
-
+function MainLayout({ children }) {
+  return (
+    <div className="page-container no-scroll">
+      <Sidebar />
+      <main className="main-content colorful-bg">
+        {children}
+      </main>
+    </div>
+  );
+}
 const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
 export default function App() {
@@ -24,18 +34,27 @@ export default function App() {
     <GoogleOAuthProvider clientId={clientId}>
       <Router>
         <Routes>
-          <Route path="/" element={<Navigate to="/login" />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/register" element={<Register />} />
+          {/* עמודי התחברות/הרשמה בלי סיידבר */}
           <Route path="/login" element={<Login />} />
-          <Route path="/playlists" element={<Playlists />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/admin" element={<Admin />} />
-          <Route path="*" element={<NotFound />} />
-          <Route path="/photos" element={<Photos />} />
-          <Route path="/upgrade" element={<Upgrade />} />
-          <Route path="/upgrade/success" element={<UpgradeSuccess />} />
-
+          <Route path="/register" element={<Register />} />
+        <Route
+            path="*"
+            element={
+              <MainLayout>
+                <Routes>
+                  <Route path="/" element={<Navigate to="/login" />} />
+                  <Route path="/home" element={<Home />} />
+                  <Route path="/playlists" element={<Playlists />} />
+                  <Route path="/profile" element={<Profile />} />
+                  <Route path="/admin" element={<Admin />} />
+                  <Route path="/photos" element={<Photos />} />
+                  <Route path="/upgrade" element={<Upgrade />} />
+                  <Route path="/upgrade/success" element={<UpgradeSuccess />} />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </MainLayout>
+            }
+          />
         </Routes>
       </Router>
     </GoogleOAuthProvider>

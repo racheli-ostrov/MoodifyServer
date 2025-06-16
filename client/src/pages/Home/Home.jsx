@@ -12,49 +12,9 @@ export default function Home() {
   const { user } = useContext(AuthContext);
   const [playlist, setPlaylist] = useState(null);
   const navigate = useNavigate();
-  const handleLogout = () => {
-  localStorage.removeItem("user"); // מחיקת הפרטים מה־localStorage
-   setUser(null);                  // איפוס ה־context
-  navigate("/login");              // מעבר לדף התחברות
-};
+
 
   return (
-    <div className="page-container no-scroll">
-      <nav className="side-navbar large-buttons">
-        <h1 className="logo">📸 MOODIFY</h1>
-        <button onClick={() => navigate("/playlists")}>
-          <FaListUl />
-          <div>
-            <span className="stat-number">1,245</span><br />
-            Playlists
-          </div>
-        </button>
-        <button onClick={() => navigate("/photos")}>
-          <FaImages />
-          <div>
-            <span className="stat-number">7,532</span><br />
-            Photos
-          </div>
-        </button>
-        <button onClick={() => navigate("/songs")}>
-          <FaMusic />
-          <div>
-            <span className="stat-number">14,097</span><br />
-            Songs
-          </div>
-        </button>
-   <button onClick={() => navigate("/upgrade")}>
-  <FaUser />
-  <div>
-    <span className="stat-number">293</span><br />
-    Pro users
-  </div>
-</button>
-
-        <button onClick={handleLogout}>Log Out</button>
-      </nav>
-
-      <main className="main-content colorful-bg">
         <div className="centered-content">
           {user && (
             <h1>
@@ -68,7 +28,5 @@ export default function Home() {
           </div>
           {playlist && <PlaylistDetails playlist={playlist} />}
         </div>
-      </main>
-    </div>
   );
 }

@@ -68,7 +68,8 @@ export default function UploadImage() {
     try {
       const res = await api.get(`/playlists/bymood/${mood}`);
       if (res.data) {
-        setPlaylists([res.data]); // ← עטוף אותו במערך
+        setPlaylists([res.data]); 
+        await api.post(`/playlists/${res.data.id}/save`);
       } else {
         alert("לא נמצא פלייליסט עבור הרגש הזה.");
       }

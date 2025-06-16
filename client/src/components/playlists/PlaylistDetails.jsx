@@ -1,5 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 import api from "../../services/api";
+import { AuthContext } from "../../context/AuthContext";
+import { useLocation } from "react-router-dom";
+import { useContext } from "react";
 
 // מיפוי רגשות לצבעים, אייקונים ואנימציות
 const moodStyle = {
@@ -14,17 +17,29 @@ const moodStyle = {
 };
 
 export default function PlaylistDetails({ playlist }) {
+  
   const playerRef = useRef(null);
+ const location = useLocation();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [playerReady, setPlayerReady] = useState(false);
-  const [viewMode, setViewMode] = useState("player"); // ברירת מחדל: נגן ברצף
-
-  // --- לייק/דיסלייק ---
+  const [viewMode, setViewMode] = useState("player"); 
   const [likes, setLikes] = useState(playlist.likes || 0);
   const [dislikes, setDislikes] = useState(playlist.dislikes || 0);
   const [likeLoading, setLikeLoading] = useState(false);
   const [dislikeLoading, setDislikeLoading] = useState(false);
-
+  const { user } = useContext(AuthContext);
+  const [songs, setSongs] = useState(playlist.songs || []);
+  const [showAdd, setShowAdd] = useState(false);
+  const [newSong, setNewSong] = useState({ title: "", url: "" });
+  const [editSongId, setEditSongId] = useState(null);
+  const [editSong, setEditSong] = useState({ title: "", url: "" });
+  const [editMode, setEditMode] = useState(false);
+  const [editPlaylist, setEditPlaylist] = useState({
+    name: playlist.name,
+    description: playlist.description,
+    mood: playlist.mood,
+  });
+ const isPlaylistsPage = location.pathname.startsWith("/playlists");
   const currentSong = playlist.songs[currentIndex];
   const moodData = moodStyle[playlist.mood?.toLowerCase()] || moodStyle.unknown;
 
@@ -37,7 +52,6 @@ export default function PlaylistDetails({ playlist }) {
     }
   };
 
-  // יצירת נגן – תלות אך ורק ב־currentIndex, viewMode!
   useEffect(() => {
     if (viewMode !== "player") return;
 
@@ -55,7 +69,7 @@ export default function PlaylistDetails({ playlist }) {
         events: {
             onReady: (event) => {
             setPlayerReady(true);
-            event.target.playVideo(); // הפעל אוטומטית כשנוצר
+            event.target.playVideo(); 
           },
           onStateChange: onPlayerStateChange,
         },
@@ -80,10 +94,8 @@ export default function PlaylistDetails({ playlist }) {
         playerRef.current = null;
       }
     };
-    // eslint-disable-next-line
   }, [currentIndex, viewMode]);
 
-  // בכל שינוי currentIndex/מעבר אוטומטי – טעינה וניגון מיידי של השיר הבא
 useEffect(() => {
   if (
     playerReady &&
@@ -93,9 +105,7 @@ useEffect(() => {
   ) {
     const nextVideoId = extractVideoId(currentSong.url);
     playerRef.current.loadVideoById(nextVideoId);
-    // אין צורך ב-playVideo כאן!
   }
-  // eslint-disable-next-line
 }, [currentIndex, playerReady, viewMode]);
 
   const onPlayerStateChange = (event) => {
@@ -104,7 +114,6 @@ useEffect(() => {
     }
   };
 
-  // --- פעולות נגן ---
   const handleNext = () => {
     setCurrentIndex((prev) => (prev + 1) % playlist.songs.length);
   };
@@ -130,7 +139,6 @@ useEffect(() => {
     }
   };
 
-  // לייק עם ספינר
   const handleLike = async () => {
     setLikeLoading(true);
     try {
@@ -142,7 +150,7 @@ useEffect(() => {
     }
     setLikeLoading(false);
   };
-  // דיסלייק עם ספינר
+
   const handleDislike = async () => {
     setDislikeLoading(true);
     try {
@@ -154,7 +162,48 @@ useEffect(() => {
     }
     setDislikeLoading(false);
   };
-
+    const handleAddSong = async () => {
+    try {
+      const res = await api.post(`/playlists/${playlist.id}/songs`, newSong);
+      setSongs(res.data.songs);
+      setShowAdd(false);
+      setNewSong({ title: "", artist: "", url: "" });
+    } catch (err) {
+      alert("שגיאה בהוספת שיר");
+    }
+  };
+    const handleDeleteSong = async (songId) => {
+    if (!window.confirm("למחוק שיר זה?")) return;
+    try {
+      const res = await api.delete(`/playlists/${playlist.id}/songs/${songId}`);
+      setSongs(res.data.songs);
+    } catch (err) {
+      alert("שגיאה במחיקת שיר");
+    }
+  };
+    const handleEditSong = (song) => {
+    setEditSongId(song.id);
+    setEditSong({ title: song.title, artist: song.artist, url: song.url });
+  };
+  const handleSaveEditSong = async () => {
+    try {
+      const res = await api.put(`/playlists/${playlist.id}/songs/${editSongId}`, editSong);
+      setSongs(res.data.songs);
+      setEditSongId(null);
+      setEditSong({ title: "", artist: "", url: "" });
+    } catch (err) {
+      alert("שגיאה בעריכת שיר");
+    }
+  };
+    const handleEditPlaylist = async () => {
+    try {
+      const res = await api.put(`/playlists/${playlist.id}`, editPlaylist);
+      alert("הפלייליסט עודכן!");
+      setEditMode(false);
+    } catch (err) {
+      alert("שגיאה בעריכת פלייליסט");
+    }
+  };
 
   return (
     <div style={{
@@ -164,7 +213,6 @@ useEffect(() => {
       border: "1px solid #ccc",
       borderRadius: "12px"
     }}>
-      {/* מעבר בין מצבים */}
       {viewMode === "player" && (
         <button type="button" onClick={() => setViewMode("list")}>
           מעבר לרשימת פלייליסט
@@ -176,7 +224,6 @@ useEffect(() => {
         </button>
       )}
 
-      {/* מצב רשימת שירים */}
       {viewMode === "list" && playlist.songs && playlist.songs.length > 0 && (
         <div style={{
           display: "grid",
@@ -208,7 +255,6 @@ useEffect(() => {
         </div>
       )}
 
-      {/* מצב נגן ברצף */}
       <div style={{ display: viewMode === "player" ? "block" : "none" }}>
         <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 8 }}>
           <button
@@ -238,6 +284,60 @@ useEffect(() => {
           <button type="button" onClick={handlePlay}>▶️ המשך</button>
           <button type="button" onClick={handleNext}>⏭️ הבא</button>
         </div>
+      </div>
+     {isPlaylistsPage && (user?.role === "pro" || user?.role === "admin") && (
+  <div>
+    <button onClick={() => setShowAdd(!showAdd)}>➕ הוסף שיר</button>
+    <button onClick={() => setEditMode(!editMode)}>📝 ערוך פרטי פלייליסט</button>
+  </div>
+)}
+
+{isPlaylistsPage && user && user.role !== "pro" && user.role !== "admin" && (
+  <div style={{ color: "red", margin: "1em 0" }}>
+    רוצה לערוך את הפלייליסט שלך? <a href="/upgrade">שדרג/י לפרו</a>
+  </div>
+)}
+    {showAdd && (
+  <div style={{ margin: "1em 0" }}>
+    <input placeholder="שם שיר" value={newSong.title} onChange={e => setNewSong({ ...newSong, title: e.target.value })} />
+    <input placeholder="קישור יוטיוב" value={newSong.url} onChange={e => setNewSong({ ...newSong, url: e.target.value })} />
+    <button onClick={handleAddSong}>שמור</button>
+    <button onClick={() => setShowAdd(false)}>ביטול</button>
+  </div>
+)}
+{editMode && (
+        <div style={{ margin: "1em 0" }}>
+          <input placeholder="שם פלייליסט" value={editPlaylist.name} onChange={e => setEditPlaylist({ ...editPlaylist, name: e.target.value })} />
+          <input placeholder="תיאור" value={editPlaylist.description} onChange={e => setEditPlaylist({ ...editPlaylist, description: e.target.value })} />
+          <input placeholder="מצב רוח" value={editPlaylist.mood} onChange={e => setEditPlaylist({ ...editPlaylist, mood: e.target.value })} />
+          <button onClick={handleEditPlaylist}>שמור</button>
+          <button onClick={() => setEditMode(false)}>ביטול</button>
+        </div>
+      )}
+ <div style={{ marginTop: "1em" }}>
+        <h4>שירים בפלייליסט:</h4>
+<ul>
+  {songs.map(song =>
+    editSongId === song.id ? (
+      <li key={song.id}>
+        <input value={editSong.title || ""} onChange={e => setEditSong({ ...editSong, title: e.target.value })} />
+        <input value={editSong.url || ""} onChange={e => setEditSong({ ...editSong, url: e.target.value })} />
+        <button onClick={handleSaveEditSong}>שמור</button>
+        <button onClick={() => setEditSongId(null)}>ביטול</button>
+      </li>
+    ) : (
+      <li key={song.id}>
+        {song.title}
+        {isPlaylistsPage &&(user?.role === "pro" || user?.role === "admin") && (
+          <>
+            <button onClick={() => handleEditSong(song)}>ערוך</button>
+            <button onClick={() => handleDeleteSong(song.id)}>מחק</button>
+          </>
+        )}
+      </li>
+    )
+  )}
+</ul>
       </div>
     </div>
   );

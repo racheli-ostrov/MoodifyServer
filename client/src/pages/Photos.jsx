@@ -1,4 +1,3 @@
-// 📁 client/pages/Photos.jsx
 import { useEffect, useState, useContext } from "react";
 import api from "../services/api";
 import { AuthContext } from "../context/AuthContext";
@@ -12,6 +11,16 @@ export default function Photos() {
       .then(res => setImages(res.data))
       .catch(err => console.error("שגיאה בשליפת תמונות:", err));
   }, []);
+
+ const handleDelete = async (id) => {
+    if (!window.confirm("האם למחוק תמונה זו?")) return;
+    try {
+      await api.delete(`/images/${id}`);
+      setImages(images.filter(img => img.id !== id));
+    } catch (err) {
+      alert("שגיאה במחיקת תמונה");
+    }
+  };
 
   if (!user) return <p>יש להתחבר כדי לצפות בתמונות</p>;
 
@@ -41,6 +50,21 @@ export default function Photos() {
               <p style={{ textAlign: "center", marginTop: "0.5em" }}>
                 מצב רוח: <b>{img.mood}</b>
               </p>
+               <button
+                style={{
+                  display: "block",
+                  margin: "0.5em auto 0 auto",
+                  background: "#e74c3c",
+                  color: "#fff",
+                  border: "none",
+                  borderRadius: "5px",
+                  padding: "0.5em 1em",
+                  cursor: "pointer"
+                }}
+                onClick={() => handleDelete(img.id)}
+              >
+                🗑️ מחק
+              </button>
             </div>
           ))}
         </div>
