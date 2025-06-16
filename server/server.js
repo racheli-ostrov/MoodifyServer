@@ -7,6 +7,7 @@ const playlistsRoutes = require('./routes/playlists');
 const authRoutes = require('./routes/auth');
 const uploadRoutes = require('./routes/upload');
 const path = require('path');
+const paypalRoutes = require('./routes/payPal');
 
 const app = express();
 app.use(cors());
@@ -18,6 +19,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/users', usersRoutes);
 app.use('/api/images', imagesRoutes);
 app.use('/api/playlists', playlistsRoutes);
+app.use('/api/paypal', paypalRoutes);
 
 app.get('/', (req, res) => res.send('SoundMate API'));
 const PORT = process.env.PORT || 3000;

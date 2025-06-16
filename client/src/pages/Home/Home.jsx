@@ -43,13 +43,14 @@ export default function Home() {
             Songs
           </div>
         </button>
-        <button onClick={() => navigate("/profile")}>
-          <FaUser />
-          <div>
-            <span className="stat-number">293</span><br />
-            Pro users
-          </div>
-        </button>
+   <button onClick={() => navigate("/upgrade")}>
+  <FaUser />
+  <div>
+    <span className="stat-number">293</span><br />
+    Pro users
+  </div>
+</button>
+
         <button onClick={handleLogout}>Log Out</button>
       </nav>
 

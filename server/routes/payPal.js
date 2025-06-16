@@ -1,0 +1,50 @@
+const express = require('express');
+const router = express.Router();
+const paypal = require('@paypal/checkout-server-sdk');
+
+// הגדרת הסביבה של פייפאל
+const client = new paypal.core.PayPalHttpClient(
+  new paypal.core.SandboxEnvironment(
+    process.env.PAYPAL_CLIENT_ID,
+    process.env.PAYPAL_CLIENT_SECRET
+  )
+);
+
+router.post('/create', async (req, res) => {
+  const { plan } = req.body;
+
+  const priceMap = {
+    "חודש": "8.00",
+    "שנה": "80.00",
+    "שנתיים": "140.00",
+  };
+
+  const amount = priceMap[plan] || "8.00";
+
+  const request = new paypal.orders.OrdersCreateRequest();
+  request.prefer("return=representation");
+  request.requestBody({
+    intent: "CAPTURE",
+    purchase_units: [{
+      amount: {
+        currency_code: "USD",
+        value: amount,
+      },
+    }],
+    application_context: {
+      return_url: `${process.env.VITE_API_URL}/upgrade/success?plan=${plan}`,
+      cancel_url: `${process.env.VITE_API_URL}/upgrade/cancel`,
+    },
+  });
+
+  try {
+    const order = await client.execute(request);
+    const approvalUrl = order.result.links.find(link => link.rel === 'approve').href;
+    res.json({ approvalUrl });
+  } catch (err) {
+    console.error("PayPal Error:", err);
+    res.status(500).json({ error: "PayPal error" });
+  }
+});
+
+module.exports = router;
