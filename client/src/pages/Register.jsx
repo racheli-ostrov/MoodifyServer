@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 export default function Register() {
-  const { user } = useContext(AuthContext); // ✅ בפנים
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -12,10 +12,8 @@ export default function Register() {
   }, [user]);
 
   return (
-    <form>
-      <div>
+    <div>
       <RegisterForm />
     </div>
-    </form>
   );
 }

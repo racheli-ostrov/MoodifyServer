@@ -8,9 +8,9 @@ export default function Sidebar() {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-  localStorage.removeItem("user"); // מחיקת הפרטים מה־localStorage
-   setUser(null);                  // איפוס ה־context
-  navigate("/login");              // מעבר לדף התחברות
+  localStorage.removeItem("user");
+   setUser(null);                  
+  navigate("/login");             
 };
 
   return (

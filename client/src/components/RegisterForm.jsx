@@ -61,9 +61,9 @@ export default function RegisterForm() {
 
       <GoogleLogin
         onSuccess={async (credentialResponse) => {
-    console.log("🎫 credentialResponse:", credentialResponse);
-    console.log("🧪 credential:", credentialResponse.credential);
-              const token = credentialResponse.credential;
+          console.log("🎫 credentialResponse:", credentialResponse);
+          console.log("🧪 credential:", credentialResponse.credential);
+          const token = credentialResponse.credential;
           const success = await googleLogin(token);
           if (success) navigate("/home", { replace: true });
         }}

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 export default function Login() {
-  const { user } = useContext(AuthContext); // ✅ כאן זה מותר
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -12,10 +12,8 @@ export default function Login() {
   }, [user]);
 
   return (
-    <from>
     <div>
       <LoginForm />
     </div>
-    </from>
   );
 }

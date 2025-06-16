@@ -62,17 +62,35 @@
 //     </AuthContext.Provider>
 //   );
 // }
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 import api from "../services/api";
 
 export const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
-  const [user, setUser] = useState(null); // לא שומר ב-localStorage
+  const [user, setUser] = useState(null);
 
+  // ✅ טוען את המשתמש בעת עליית האפליקציה, לפי הטוקן שבקוקי
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const res = await api.get("/users/me", { withCredentials: true });
+        setUser(res.data.user);
+      } catch (err) {
+        setUser(null); // טוקן לא תקף או לא קיים
+      }
+    };
+    fetchUser();
+  }, []);
+
+  // ✅ התחברות רגילה (שומרת טוקן ב-cookie דרך withCredentials)
   const login = async (username, password) => {
     try {
-      const res = await api.post("/users/login", { username, password });
+      const res = await api.post(
+        "/users/login",
+        { username, password },
+        { withCredentials: true }
+      );
       setUser(res.data.user);
       return true;
     } catch {
@@ -81,10 +99,14 @@ export function AuthProvider({ children }) {
     }
   };
 
+  // ✅ התחברות דרך Google OAuth
   const googleLogin = async (token) => {
     try {
-      const res = await api.post("/users/auth/google", { token });
-      if (!res.data.user) throw new Error("חסרים נתונים מהשרת");
+      const res = await api.post(
+        "/users/auth/google",
+        { token },
+        { withCredentials: true }
+      );
       setUser(res.data.user);
       return true;
     } catch (err) {
@@ -94,9 +116,15 @@ export function AuthProvider({ children }) {
     }
   };
 
+  // ✅ הרשמה ואז התחברות אוטומטית
   const register = async (username, password, email, name) => {
     try {
-      await api.post("/users/register", { username, password, email, name });
+      await api.post("/users/register", {
+        username,
+        password,
+        email,
+        name,
+      });
       return await login(username, password);
     } catch (e) {
       if (e.response?.data?.error) alert(e.response.data.error);
@@ -105,29 +133,20 @@ export function AuthProvider({ children }) {
     }
   };
 
-// const logout = async () => {
-//   try {
-//     await api.post("/users/logout", {}, { withCredentials: true }); // מחיקת הקוקי מהשרת
-//   } catch (err) {
-//     console.error("Logout error:", err);
-//   } finally {
-//     setUser(null);
-//   }
-// };
-
-const logout = async () => {
-  try {
-    await api.post("/users/logout", {}, { withCredentials: true });
-  } catch (e) {
-    console.error("שגיאה בלוגאאוט", e);
-  }
-  setUser(null);
-  localStorage.removeItem("token");
-  localStorage.removeItem("user");
-};
+  // ✅ התנתקות מהשרת ומנקה את ה־state
+  const logout = async () => {
+    try {
+      await api.post("/users/logout", {}, { withCredentials: true });
+    } catch (e) {
+      console.error("שגיאה בלוגאאוט", e);
+    }
+    setUser(null);
+  };
 
   return (
-    <AuthContext.Provider value={{ user, login, googleLogin, register, logout, setUser }}>
+    <AuthContext.Provider
+      value={{ user, login, googleLogin, register, logout, setUser }}
+    >
       {children}
     </AuthContext.Provider>
   );

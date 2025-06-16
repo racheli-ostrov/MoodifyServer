@@ -6,7 +6,7 @@ USE soundmate;
 CREATE TABLE users (
   id INT AUTO_INCREMENT PRIMARY KEY,
   username VARCHAR(50) UNIQUE NOT NULL,
-  password VARCHAR(255) NOT NULL,
+  password VARCHAR(255) NULL,
   email VARCHAR(100) UNIQUE,
   name VARCHAR(100),
   role ENUM('user','pro','admin') DEFAULT 'user',
@@ -33,7 +33,6 @@ CREATE TABLE playlists (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   likes INT DEFAULT 0,
   dislikes INT DEFAULT 0,
-  FOREIGN KEY (user_id) REFERENCES users(id),
   FOREIGN KEY (image_id) REFERENCES images(id)
 );
 
@@ -116,7 +115,7 @@ INSERT INTO playlists (id, image_id, mood, name, description, created_at, likes,
 (3,3,'sad','User Sad Songs','ליגריל בובע מסיליליפין','2025-06-08 22:22:09',0,1),
 (4,NULL,'calm','מיינד נודר',NULL,'2025-06-09 23:49:01',0,0),
 (5,NULL,'energetic','ניצבפוק דינע',NULL,'2025-06-09 23:49:01',0,0),
-(6,LL,'romantic','הנשמת נרועמ קרד',NULL,'2025-06-09 23:49:01',0,0),
+(6,NULL,'romantic','הנשמת נרועמ קרד',NULL,'2025-06-09 23:49:01',0,0),
 (7,NULL,'neutral','שונמר תמדר',NULL,'2025-06-09 23:49:01',0,1),
 (8,NULL,'fear','נרוטסמ נרוטסמ',NULL,'2025-06-09 23:49:01',1,0);
 
