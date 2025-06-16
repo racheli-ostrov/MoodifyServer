@@ -74,7 +74,8 @@ export default function UploadImage() {
     try {
       const res = await api.get(`/playlists/bymood/${mood}`);
       if (res.data) {
-        setPlaylists([res.data]);
+        setPlaylists([res.data]); 
+        await api.post(`/playlists/${res.data.id}/save`);
       } else {
         alert("No playlist found for this mood.");
       }

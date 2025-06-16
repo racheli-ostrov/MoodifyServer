@@ -16,7 +16,7 @@ const auth = require("../middlewares/authMiddleware");
 const router = express.Router();
 
 router.post("/upload", auth, upload.single("image"), imagesController.uploadAndDetectMood);
-
 router.get("/my", auth, imagesController.getImagesByUser);
+router.delete("/:id", auth, imagesController.deleteImage);
 
 module.exports = router;

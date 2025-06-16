@@ -13,6 +13,7 @@ export default function Home() {
   const { user } = useContext(AuthContext);
   const [playlist, setPlaylist] = useState(null);
   const navigate = useNavigate();
+
 // const handleLogout = async () => {
 //   try {
 //     await api.post("/users/logout", {}, { withCredentials: true }); // בקשת מחיקה מהשרת
@@ -101,7 +102,5 @@ const handleLogout = async () => {
           </div>
           {playlist && <PlaylistDetails playlist={playlist} />}
         </div>
-      </main>
-    </div>
   );
 }
