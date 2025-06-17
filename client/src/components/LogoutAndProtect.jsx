@@ -19,11 +19,11 @@ export default function Home() {
     navigate("/login");
 
     // חסימת BACK/FORWARD
-     window.history.pushState(null, "", window.location.href);
-    window.onpopstate = () => {
-      navigate("/login",);
-    };
-  };
+  //    window.history.pushState(null, "", window.location.href);
+  //   window.onpopstate = () => {
+  //     navigate("/login",);
+  //   };
+   };
 
   return (
     <button onClick={handleLogout}>Logout</button>
