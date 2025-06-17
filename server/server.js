@@ -66,7 +66,7 @@ app.use('/api/users', usersRoutes);
 app.use('/api/images', imagesRoutes);
 app.use('/api/playlists', playlistsRoutes);
 app.use('/api/paypal', paypalRoutes);
-
+console.log("Loaded users routes:", usersRoutes.stack.map(r => r.route && r.route.path));
 // ✅ ברירת מחדל
 app.get('/', (req, res) => res.send('SoundMate API'));
 

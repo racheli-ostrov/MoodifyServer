@@ -12,7 +12,7 @@ export default function LoginForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const success = await login(username, password);
-    if (success) navigate("/home", { replace: true });
+    if (success) navigate("/home");
   };
 
   return (
@@ -46,7 +46,7 @@ export default function LoginForm() {
         onSuccess={async (credentialResponse) => {
           const token = credentialResponse.credential;
           const success = await googleLogin(token);
-          if (success) navigate("/home", { replace: true });
+          if (success) navigate("/home");
         }}
         onError={() => {
           alert("שגיאת התחברות עם גוגל");

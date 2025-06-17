@@ -10,7 +10,7 @@ const moodStyle = {
   sad:       { icon: "😢", color: "#e1f5fe", animation: "fade" },
   fear:      { icon: "😱", color: "#ede7f6", animation: "shake" },
   angry:     { icon: "😠", color: "#ffebee", animation: "shake" },
-  surprised: { icon: "😲", color: "#f3e5f5", animation: "bounce" },
+  surprise: { icon: "😲", color: "#f3e5f5", animation: "bounce" },
   calm:      { icon: "🌿", color: "#e8f5e9", animation: "float" },
   neutral:   { icon: "😐", color: "#f5f5f5", animation: "none" },
   unknown:   { icon: "🎵", color: "#ffffff", animation: "" }

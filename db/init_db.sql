@@ -111,13 +111,15 @@ INSERT INTO images (id, user_id, url, mood, created_at) VALUES
 -- הכנסת נתונים לטבלת playlists
 INSERT INTO playlists (id, image_id, mood, name, description, created_at, likes, dislikes) VALUES
 (1,1,'happy','Admin Happy Playlist','פלייליסט שמח של אדמין','2025-06-08 22:22:09',2,0),
-(2,1,'surprised','ProUser Chill','רפאל עונג מסיליליפין','2025-06-08 22:22:09',0,0),
+(2,1,'surprise','ProUser Chill','רפאל עונג מסיליליפין','2025-06-08 22:22:09',0,0),
 (3,3,'sad','User Sad Songs','ליגריל בובע מסיליליפין','2025-06-08 22:22:09',0,1),
 (4,NULL,'calm','מיינד נודר',NULL,'2025-06-09 23:49:01',0,0),
 (5,NULL,'energetic','ניצבפוק דינע',NULL,'2025-06-09 23:49:01',0,0),
 (6,NULL,'romantic','הנשמת נרועמ קרד',NULL,'2025-06-09 23:49:01',0,0),
 (7,NULL,'neutral','שונמר תמדר',NULL,'2025-06-09 23:49:01',0,1),
-(8,NULL,'fear','נרוטסמ נרוטסמ',NULL,'2025-06-09 23:49:01',1,0);
+(8,NULL,'fear','נרוטסמ נרוטסמ',NULL,'2025-06-09 23:49:01',1,0),
+(9,NULL,'angry','בעי טבעי','פלייליסט של שירים כועסים','2025-06-09 23:49:01',0,0);
+
 
 -- הכנסת נתונים לטבלת songs (כל השירים מהתמונה)
 INSERT INTO songs (id, playlist_id, title, url) VALUES
@@ -185,7 +187,12 @@ INSERT INTO songs (id, playlist_id, title, url) VALUES
 (63,7,'natural Song 9','https://www.youtube.com/watch?v=JWRaW7rFqg'),
 (64,7,'natural Song 10','https://www.youtube.com/watch?v=ZDR3ROMCWdM'),
 (65,7,'natural Song 11','https://www.youtube.com/watch?v=CrrIUoE57AM'),
-(66,7,'natural Song 12','https://www.youtube.com/watch?v=ZDR3ROMCWdM');
+(66,7,'natural Song 12','https://www.youtube.com/watch?v=ZDR3ROMCWdM'),
+(67,9,'Angry Song 1','https://www.youtube.com/watch?v=jCseBdVmROc'),
+(68,9,'Angry Song 2','https://www.youtube.com/watch?v=myULyHvYkGc'),
+(69,9,'Angry Song 3','https://www.youtube.com/watch?v=vn_PmKgCpDs&pp=0gcJCdgAo7VqN5tD'),
+(70,9,'Angry Song 4','https://www.youtube.com/watch?v=ZDR3ROMCWdM'),
+(71,9,'Angry Song 5','https://www.youtube.com/watch?v=ZDR3ROMCWdM');
 
 -- הכנסת נתונים לטבלת playlist_votes
 INSERT INTO playlist_votes (id, user_id, playlist_id, vote) VALUES

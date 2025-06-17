@@ -107,24 +107,24 @@ import "./Home.moudle.css";
 import api from "../../services/api";
 
 export default function Home() {
-  const { user, logout } = useContext(AuthContext);
+  const { user, logout, loading } = useContext(AuthContext);
   const [playlist, setPlaylist] = useState(null);
   const navigate = useNavigate();
 
- useEffect(() => {
-    const handleBack = (e) => {
-      e.preventDefault();
-      window.history.pushState(null, "", window.location.href);
-    };
+//  useEffect(() => {
+//     const handleBack = (e) => {
+//       e.preventDefault();
+//       window.history.pushState(null, "", window.location.href);
+//     };
 
-    // רק אם יש עמוד אחד בהיסטוריה (למשל אחרי התחברות)
-    if (window.history.length <= 2) {
-      window.history.pushState(null, "", window.location.href);
-      window.addEventListener("popstate", handleBack);
-    }
+//     // רק אם יש עמוד אחד בהיסטוריה (למשל אחרי התחברות)
+//     if (window.history.length <= 2) {
+//       window.history.pushState(null, "", window.location.href);
+//       window.addEventListener("popstate", handleBack);
+//     }
 
-    return () => window.removeEventListener("popstate", handleBack);
-  }, []);
+//     return () => window.removeEventListener("popstate", handleBack);
+//   }, []);
 
 
   const handleLogout = async () => {
@@ -135,16 +135,19 @@ export default function Home() {
     }
 
     logout();
-    navigate("/login", { replace: true });
+    navigate("/login");
   };
 
-   if (!user || !user.username) {
-    return (
-      <div className="error-message">
-        אין אפשרות לראות את עמוד הבית ללא התחברות כמשתמש.
-      </div>
-    );
-  }
+if (loading) {
+  return <div className="error-message">טוען...</div>;
+}
+if (!user || !user.username) {
+  return (
+    <div className="error-message">
+      אין אפשרות לראות את עמוד הבית ללא התחברות כמשתמש.
+    </div>
+  );
+}
 
   return (
     <div className="page-container no-scroll">

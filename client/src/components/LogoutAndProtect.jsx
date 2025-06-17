@@ -16,12 +16,12 @@ export default function Home() {
     }
 
     setUser(null);
-    navigate("/login", { replace: true });
+    navigate("/login");
 
     // חסימת BACK/FORWARD
-    window.history.pushState(null, "", window.location.href);
+     window.history.pushState(null, "", window.location.href);
     window.onpopstate = () => {
-      navigate("/login", { replace: true });
+      navigate("/login",);
     };
   };
 
@@ -41,7 +41,7 @@ export default function Login() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (user) navigate("/home", { replace: true });
+    if (user) navigate("/home");
   }, [user]);
 
   return (
