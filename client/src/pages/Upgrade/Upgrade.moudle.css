@@ -112,3 +112,378 @@ h1, h2, h3 {
   margin: 0.6em 0;
   color: #3c4043;
 }
+
+/* Upgrade.module.css */
+
+.upgrade-container {
+  max-width: 1200px;
+  margin: 3rem auto;
+  padding: 2rem;
+  text-align: center;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.upgrade-container h1 {
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+  color: #111;
+}
+
+.upgrade-container p {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 2rem;
+}
+
+.plans-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.plan-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 2rem;
+  width: 280px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease;
+  position: relative;
+}
+
+.plan-card:hover {
+  transform: scale(1.03);
+}
+
+.plan-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.plan-price {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0.5rem 0;
+}
+
+.plan-term {
+  color: #777;
+  margin-bottom: 1.5rem;
+}
+
+.upgrade-button {
+  background-color: #111;
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  border-radius: 24px;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.upgrade-button:hover {
+  background-color: #333;
+}
+
+.features-list {
+  text-align: left;
+  max-width: 800px;
+  margin: 0 auto;
+  font-size: 1rem;
+  color: #444;
+  line-height: 1.8;
+}
+
+.features-list h3 {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+.error-message {
+  text-align: center;
+  padding: 3rem;
+  font-size: 1.2rem;
+  color: red;
+}
+
+/* Upgrade.module.css */
+
+.upgrade-container {
+  max-width: 1200px;
+  margin: 3rem auto;
+  padding: 2rem;
+  text-align: center;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.upgrade-container h1 {
+  font-size: 2.4rem;
+  margin-bottom: 0.5rem;
+  color: #111;
+}
+
+.upgrade-container p {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.plans-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.plan-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 2rem;
+  width: 280px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease;
+  position: relative;
+  border: 1px solid #ddd;
+}
+
+.plan-card:hover {
+  transform: scale(1.03);
+}
+
+.plan-card.recommended {
+  border: 2px solid #1a73e8;
+  box-shadow: 0 0 15px rgba(26,115,232,0.3);
+}
+
+.plan-card.recommended::before {
+  content: "Recommended";
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1a73e8;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 0.3rem 0.8rem;
+  border-radius: 12px;
+}
+
+.plan-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.plan-price {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0.5rem 0;
+  color: #1a73e8;
+}
+
+.plan-term {
+  color: #777;
+  margin-bottom: 1.5rem;
+}
+
+.upgrade-button {
+  background-color: #111;
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  border-radius: 24px;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.upgrade-button:hover {
+  background-color: #333;
+}
+
+.features-list {
+  text-align: left;
+  max-width: 800px;
+  margin: 2rem auto;
+  font-size: 1rem;
+  color: #444;
+  line-height: 1.8;
+}
+
+.features-list h3 {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+.features-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.features-list li {
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.error-message {
+  text-align: center;
+  padding: 3rem;
+  font-size: 1.2rem;
+  color: red;
+}
+
+/* ביטול רקע לבן גורף */
+.auth-modern {
+  background: none;
+  box-shadow: none;
+  padding: 0;
+}
+/* Upgrade.module.css */
+
+.upgrade-container {
+  max-width: 1200px;
+  margin: 3rem auto;
+  padding: 2rem;
+  text-align: center;
+  font-family: "Segoe UI", sans-serif;
+}
+
+.upgrade-container h1 {
+  font-size: 2.4rem;
+  margin-bottom: 0.5rem;
+  color: #111;
+}
+
+.upgrade-container p {
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.plans-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.plan-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 2rem;
+  width: 280px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease;
+  position: relative;
+  border: 1px solid #ddd;
+}
+
+.plan-card:hover {
+  transform: scale(1.03);
+}
+
+/* זו התוכנית המומלצת עם מסגרת כחולה */
+.plan-card.recommended {
+  border: 2px solid #1a73e8;
+  box-shadow: 0 0 15px rgba(26,115,232,0.3);
+}
+
+.plan-card.recommended::before {
+  content: "Recommended";
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1a73e8;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: bold;
+  padding: 0.3rem 0.8rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.plan-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.plan-price {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0.5rem 0;
+  color: #1a73e8;
+}
+
+.plan-term {
+  color: #777;
+  margin-bottom: 1.5rem;
+}
+
+.upgrade-button {
+  background-color: #111;
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  border-radius: 24px;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.upgrade-button:hover {
+  background-color: #333;
+}
+
+.features-list {
+  text-align: left;
+  max-width: 800px;
+  margin: 2rem auto;
+  font-size: 1rem;
+  color: #444;
+  line-height: 1.8;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.features-list h3 {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+}
+
+.features-list ul {
+  list-style: none;
+  padding: 0;
+}
+
+.features-list li {
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.error-message {
+  text-align: center;
+  padding: 3rem;
+  font-size: 1.2rem;
+  color: red;
+}
+
+/* ביטול רקע לבן גורף */
+.auth-modern {
+  background: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  border: none !important;
+}

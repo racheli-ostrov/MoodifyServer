@@ -41,6 +41,14 @@ export default function Upgrade() {
       <div className="upgrade-container">
         <h1>🚀 Upgrade to Pro</h1>
         <p>Join now for a premium experience with all the following benefits:</p>
+        <div className="features-list">
+
+          <li>🎧 Access to exclusive playlists by mood</li>
+          <li>⚡ Faster image analysis</li>
+          <li>🧠 Personalized recommendations</li>
+          <li>📁 Unlimited history saving</li>
+          <li>💬 Professional and personal support</li>
+      </div>
       </div>
 
       <div className="plans-grid">
@@ -58,17 +66,6 @@ export default function Upgrade() {
             </button>
           </div>
         ))}
-      </div>
-
-      <div className="features-list">
-        <h3>Pro Benefits Include:</h3>
-        <ul>
-          <li>🎧 Access to exclusive playlists by mood</li>
-          <li>⚡ Faster image analysis</li>
-          <li>🧠 Personalized recommendations</li>
-          <li>📁 Unlimited history saving</li>
-          <li>💬 Professional and personal support</li>
-        </ul>
       </div>
     </div>
   );
