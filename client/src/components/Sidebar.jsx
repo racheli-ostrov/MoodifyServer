@@ -43,13 +43,6 @@ export default function Sidebar() {
           Photos
         </div>
       </button>
-      <button onClick={() => navigate("/songs")}>
-        <FaMusic />
-        <div>
-          <span className="stat-number">14,097</span><br />
-          Songs
-        </div>
-      </button>
       <button onClick={() => navigate("/upgrade")}>
         <FaUser />
         <div>
@@ -57,7 +50,13 @@ export default function Sidebar() {
           Pro users
         </div>
       </button>
-      <button onClick={handleLogout}>Log Out</button>
+      {/* <button className="sidebar-logout" onClick={handleLogout}>Log Out</button> */}
+      <button className="sidebar-logout" onClick={handleLogout}>
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M16 13v-2H7V8l-5 4 5 4v-3zM20 3h-9a2 2 0 0 0-2 2v4h2V5h9v14h-9v-4h-2v4a2 2 0 0 0 2 2h9a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2z"/>
+  </svg>
+  Log Out
+</button>
     </nav>
   );
 }

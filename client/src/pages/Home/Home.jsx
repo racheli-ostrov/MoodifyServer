@@ -182,14 +182,6 @@ if (!user || !user.username) {
             Photos
           </div>
         </button>
-        <button onClick={() => navigate("/songs")}>
-          <FaMusic />
-          <div>
-            <span className="stat-number">14,097</span>
-            <br />
-            Songs
-          </div>
-        </button>
         <button onClick={() => navigate("/upgrade")}>
           <FaUser />
           <div>

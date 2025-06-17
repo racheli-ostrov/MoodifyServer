@@ -55,11 +55,13 @@ import { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../../context/AuthContext"; // ← עולה פעמיים: playlists → components → context
 import api from "../../services/api"; // ← עולה פעמיים: playlists → components → services
 import PlaylistDetails from "./PlaylistDetails";
+import { useNavigate } from "react-router-dom";
 
 export default function PlaylistList() {
   const { user } = useContext(AuthContext);
   const [playlists, setPlaylists] = useState([]);
   const [selectedPlaylist, setSelectedPlaylist] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchPlaylists() {
@@ -76,6 +78,7 @@ export default function PlaylistList() {
   const handleSelect = async (playlistId) => {
     try {
       const res = await api.get(`/playlists/${playlistId}`);
+      navigate(`/playlists/${playlistId}`);
       setSelectedPlaylist(res.data);
     } catch (err) {
       console.error("שגיאה בקבלת פרטי פלייליסט:", err);

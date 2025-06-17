@@ -211,3 +211,18 @@ exports.getMyImages = async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 };
+
+exports.updateImageName = async (req, res) => {
+  const { id } = req.params;
+  const { name } = req.body;
+
+  if (!name) return res.status(400).json({ error: "Name is required" });
+
+  try {
+    const result = await imagesService.updateName(id, name);
+    res.json({ success: true, updated: result });
+  } catch (err) {
+    console.error("שגיאה בעדכון שם תמונה:", err);
+    res.status(500).json({ error: "Database error" });
+  }
+};

@@ -19,7 +19,7 @@ router.get('/user/:userId', auth, imagesController.getImagesByUser);
 
 // ✅ הנתיב החדש
 router.get('/my', auth, imagesController.getMyImages);
-
+router.put("/:id", auth, imagesController.updateImageName);
 router.delete('/:id', auth, imagesController.deleteImage);
 
 module.exports = router;

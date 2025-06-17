@@ -16,3 +16,11 @@ exports.deleteImage = async (imageId, userId) => {
     [imageId, userId]
   );
 };
+
+exports.updateName = async (id, name) => {
+  const [result] = await pool.query(
+    "UPDATE images SET name = ? WHERE id = ?",
+    [name, id]
+  );
+  return result;
+};
