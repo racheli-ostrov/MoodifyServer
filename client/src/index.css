@@ -27,7 +27,7 @@ nav a:hover, nav button:hover {
 }
 .main {
   padding: 2em;
-  max-width: 600px;
+  /* max-width: 2600px; */
   margin: auto;
 }
 form {
@@ -38,7 +38,7 @@ form {
   padding: 2em;
   border-radius: 1em;
   box-shadow: 0 0 8px #eee;
-  max-width: 3500px;
+  /* max-width: 3500px; */
   margin: auto;
 }
 button {
@@ -172,4 +172,6 @@ h3{
   justify-content: center;
   align-items: center;
   position: relative;
+  width: 100%;
+
 }

@@ -82,6 +82,13 @@ export default function PlaylistList() {
     }
   };
 
+   if (!user || !user.username) {
+    return (
+      <div className="error-message">
+        אין אפשרות לראות פלייליסטים ללא התחברות כמשתמש.
+      </div>
+    );
+  }
   return (
     <div>
       <h2>הפלייליסטים שלי</h2>

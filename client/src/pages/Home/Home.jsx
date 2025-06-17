@@ -97,26 +97,54 @@
 //     </div>
 //   );
 // }
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaMusic, FaImages, FaListUl, FaUser } from "react-icons/fa";
 import { AuthContext } from "../../context/AuthContext";
 import UploadImage from "../../components/UploadImage/UploadImage";
 import PlaylistDetails from "../../components/playlists/PlaylistDetails";
-import "../Home/Home.moudle.css";
+import "./Home.moudle.css";
+import api from "../../services/api";
 
 export default function Home() {
   const { user, logout } = useContext(AuthContext);
   const [playlist, setPlaylist] = useState(null);
   const navigate = useNavigate();
 
-  // פונקציית Logout שמוחקת קוקיז
-  const handleLogout = () => {
-    document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    document.cookie = "user=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+ useEffect(() => {
+    const handleBack = (e) => {
+      e.preventDefault();
+      window.history.pushState(null, "", window.location.href);
+    };
+
+    // רק אם יש עמוד אחד בהיסטוריה (למשל אחרי התחברות)
+    if (window.history.length <= 2) {
+      window.history.pushState(null, "", window.location.href);
+      window.addEventListener("popstate", handleBack);
+    }
+
+    return () => window.removeEventListener("popstate", handleBack);
+  }, []);
+
+
+  const handleLogout = async () => {
+    try {
+      await api.post("/users/logout", {}, { withCredentials: true });
+    } catch (err) {
+      console.error("שגיאה בלוגאאוט", err);
+    }
+
     logout();
-    navigate("/login");
+    navigate("/login", { replace: true });
   };
+
+   if (!user || !user.username) {
+    return (
+      <div className="error-message">
+        אין אפשרות לראות את עמוד הבית ללא התחברות כמשתמש.
+      </div>
+    );
+  }
 
   return (
     <div className="page-container no-scroll">
@@ -126,9 +154,10 @@ export default function Home() {
           <div
             className={`user-status-badge ${user.role === "pro" ? "pro" : "free"}`}
             onClick={() => {
-              if (user.role !== "pro") window.location.href = "/upgrade";
+              if (user.role !== "pro") navigate("/upgrade");
             }}
             title={user.role === "pro" ? "You are a Pro user" : "Click to upgrade"}
+            style={{ cursor: user.role !== "pro" ? "pointer" : "default" }}
           >
             {user.role === "pro" ? "Pro 🌟" : "Free User"}
           </div>
@@ -173,12 +202,12 @@ export default function Home() {
         <div className="centered-content">
           {user && (
             <h1>
-              ,!hello {user.name ? user.name : user.username}
+              Hello, {user.name ? user.name : user.username}!
             </h1>
           )}
           <h1 className="main-title">?How are you feeling today</h1>
           <p className="subtitle">
-            .Upload a photo and we'll create a playlist that matches your mood
+            Upload a photo and we'll create a playlist that matches your mood.
           </p>
           <div className="upload-card">
             <UploadImage onPlaylistCreated={setPlaylist} />

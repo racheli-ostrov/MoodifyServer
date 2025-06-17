@@ -215,3 +215,13 @@ exports.logout = (req, res) => {
   });
   res.status(200).json({ message: "Logged out" });
 };
+
+exports.upgradeToPro = async (req, res) => {
+  const userId = req.user.id;
+  try {
+    await pool.query("UPDATE users SET role = 'pro' WHERE id = ?", [userId]);
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: "DB error" });
+  }
+};

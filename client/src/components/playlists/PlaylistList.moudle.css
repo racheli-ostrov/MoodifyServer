@@ -108,6 +108,7 @@ html, body {
   justify-content: center;
   align-items: center;
   position: relative;
+  width: 100%;
   /* overflow: hidden; */
 }
 
@@ -202,7 +203,7 @@ form button {
   background: rgba(255, 255, 255, 0.15);
   padding: 2em;
   border-radius: 20px;
-  max-width: 1400px;
+  /* max-width: 1400px; */
   margin: 2em auto 0 auto;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
   text-align: center;

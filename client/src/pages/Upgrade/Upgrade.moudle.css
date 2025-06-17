@@ -13,7 +13,7 @@ h1, h2, h3 {
 }
 
 .upgrade-container {
-  max-width: 1200px;
+  /* max-width: 1200px; */
   margin: 2em auto;
   padding: 2em;
   background: white;

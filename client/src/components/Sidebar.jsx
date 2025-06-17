@@ -8,7 +8,8 @@ export default function Sidebar() {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-  localStorage.removeItem("user");
+  // localStorage.removeItem("user");
+  clearLocalStorage();
    setUser(null);                  
   navigate("/login");             
 };
@@ -18,6 +19,18 @@ export default function Sidebar() {
       <Link to="/home" className="logo" style={{ textDecoration: "none", color: "inherit" }}>
         📸 MOODIFY
       </Link>
+      {user && (
+          <div
+            className={`user-status-badge ${user.role === "pro" ? "pro" : "free"}`}
+            onClick={() => {
+              if (user.role !== "pro") navigate("/upgrade");
+            }}
+            title={user.role === "pro" ? "You are a Pro user" : "Click to upgrade"}
+            style={{ cursor: user.role !== "pro" ? "pointer" : "default" }}
+          >
+            {user.role === "pro" ? "Pro 🌟" : "Free User"}
+          </div>
+        )}
       <button onClick={() => navigate("/playlists")}>
         <FaListUl />
         <div>

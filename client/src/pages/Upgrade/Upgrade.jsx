@@ -1,10 +1,13 @@
 import { useState } from "react";
+import { useContext } from "react";
+import { AuthContext } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import api from "../../services/api";
 import "../Upgrade/Upgrade.moudle.css";
 
 export default function Upgrade() {
   const [loading, setLoading] = useState(false);
+  const { user, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleUpgrade = async (plan) => {
@@ -24,6 +27,14 @@ export default function Upgrade() {
     { label: "Pro Yearly", price: 80, term: "year", gradient: "from-green-500 to-emerald-500" },
     { label: "Pro 2 Years", price: 140, term: "Two years", gradient: "from-blue-500 to-cyan-500" },
   ];
+
+   if (!user || !user.username) {
+    return (
+      <div className="error-message">
+        אין אפשרות לראות את עמוד הפרו ללא התחברות כמשתמש.
+      </div>
+    );
+  }
 
   return (
     <div className="upgrade-container">

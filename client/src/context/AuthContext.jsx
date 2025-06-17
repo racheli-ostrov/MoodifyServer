@@ -141,6 +141,7 @@ export function AuthProvider({ children }) {
       console.error("שגיאה בלוגאאוט", e);
     }
     setUser(null);
+    window.location.replace("/login");
   };
 
   return (

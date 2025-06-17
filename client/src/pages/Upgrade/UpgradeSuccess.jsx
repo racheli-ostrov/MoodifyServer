@@ -1,10 +1,11 @@
 import { useEffect, useContext } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
+import api from "../../services/api";
 
 export default function UpgradeSuccess() {
   const navigate = useNavigate();
-  const { user } = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
   const location = useLocation();
 
   const searchParams = new URLSearchParams(location.search);
@@ -15,11 +16,26 @@ export default function UpgradeSuccess() {
   });
 
   useEffect(() => {
+    const confirmUpgrade = async () => {
+      try {
+        await api.post("/users/upgrade", {}, { withCredentials: true });
+        const updatedUser = { ...user, role: "pro" };
+        setUser(updatedUser);
+        localStorage.setItem("user", JSON.stringify(updatedUser));
+      } catch (err) {
+        console.error("Error upgrading user", err);
+      }
+    };
+
+    if (user?.role !== "pro") {
+      confirmUpgrade();
+    }
+
     const timeout = setTimeout(() => {
       navigate("/profile");
     }, 5000);
     return () => clearTimeout(timeout);
-  }, [navigate]);
+  }, [navigate, user, setUser]);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-purple-100 to-pink-100 p-6">
