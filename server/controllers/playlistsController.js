@@ -227,9 +227,10 @@ exports.savePlaylistForUser = async (req, res) => {
 
     await playlistsService.assignPlaylistToUser(userId, playlistId);
     res.status(201).json({ message: "נשמר בהצלחה" });
-  } catch (err) {
-    res.status(500).json({ error: "שגיאה בשמירת הפלייליסט" });
-  }
+  } catch (e) {
+  console.error("Save playlist error:", e); // חשוב!
+  res.status(500).json({ error: "Server error" });
+}
 };
 
 exports.addSongToPlaylist = async (req, res) => {

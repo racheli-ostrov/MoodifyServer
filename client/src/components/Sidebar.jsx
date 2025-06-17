@@ -7,10 +7,8 @@ export default function Sidebar() {
   const { user, setUser, logout } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-  // localStorage.removeItem("user");
-  clearLocalStorage();
-   setUser(null);                  
+  const handleLogout = async() => {
+  await logout();                 
   navigate("/login");             
 };
 

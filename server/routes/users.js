@@ -14,5 +14,6 @@ router.post("/auth/google", googleLogin);
 router.post("/logout", usersController.logout);
 router.post("/upgrade", auth, upgradeToPro);
 router.post("/upgrade", authMiddleware, usersController.upgradeToPro);
+router.get('/me', authMiddleware, usersController.getMe);
 
 module.exports = router;

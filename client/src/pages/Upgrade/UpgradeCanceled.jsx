@@ -7,7 +7,7 @@ export default function UpgradeCancel() {
   useEffect(() => {
     // אופציונלי: חזרה אוטומטית לדף הבית אחרי כמה שניות
     const timer = setTimeout(() => {
-      navigate("/home", { replace: true });
+      navigate("/home");
     }, 5000);
     return () => clearTimeout(timer);
   }, [navigate]);

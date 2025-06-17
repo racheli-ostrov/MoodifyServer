@@ -81,3 +81,10 @@ exports.editPlaylist = async ({ id, name, description, mood }) => {
     [name, description, mood, id]
   );
 };
+exports.countUserPlaylists = async (userId) => {
+  const [rows] = await pool.query(
+    "SELECT COUNT(*) AS count FROM user_playlists WHERE user_id = ?",
+    [userId]
+  );
+  return rows[0].count;
+};

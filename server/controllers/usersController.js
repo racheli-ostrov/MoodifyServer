@@ -225,3 +225,9 @@ exports.upgradeToPro = async (req, res) => {
     res.status(500).json({ error: "DB error" });
   }
 };
+exports.getMe = async (req, res) => {
+  // req.user מגיע מה־authMiddleware
+  if (!req.user) return res.status(401).json({ error: "Not authenticated" });
+  // אפשר להחזיר את כל השדות שתרצה
+  res.json({ user: req.user });
+};

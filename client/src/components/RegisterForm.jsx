@@ -15,7 +15,7 @@ export default function RegisterForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const success = await register(username, password, email, name);
-    if (success) navigate("/home", { replace: true });
+    if (success) navigate("/home");
   };
 
   return (
@@ -65,7 +65,7 @@ export default function RegisterForm() {
           console.log("🧪 credential:", credentialResponse.credential);
           const token = credentialResponse.credential;
           const success = await googleLogin(token);
-          if (success) navigate("/home", { replace: true });
+          if (success) navigate("/home");
         }}
         onError={() => {
           alert("שגיאת התחברות עם גוגל");
