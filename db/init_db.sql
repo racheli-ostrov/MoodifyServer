@@ -26,14 +26,12 @@ CREATE TABLE images (
 -- טבלת פלייליסטים
 CREATE TABLE playlists (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  image_id INT,
   mood VARCHAR(50) NOT NULL,
   name VARCHAR(100),
   description TEXT,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   likes INT DEFAULT 0,
-  dislikes INT DEFAULT 0,
-  FOREIGN KEY (image_id) REFERENCES images(id)
+  dislikes INT DEFAULT 0
 );
 
 -- טבלת שירים
@@ -65,7 +63,6 @@ CREATE TABLE user_playlists (
 );
 -- הכנסת נתונים לטבלת users
 INSERT INTO users (id, username, password, email, name, role, created_at) VALUES
-(1,'admin','$2b$10$zS2SRVNHVwHE98.8gwBM5OB0vaL82tLQGmJPjP0Hdq961C/N9f8o5u','admin@soundmate.com','Admin Admin','admin','2025-06-08 22:22:09'),
 (2,'proUser','$2b$10$u8dR0kWaZg5h6kefCpq7e9E982g8Ef/Y0wRBL8OvA83KpqOdrVJa','pro@soundmate.com','Pro User','pro','2025-06-08 22:22:09'),
 (3,'reguLarUser','$2b$10$fwxFoR8Fv/dxE5hj9uUM7y/JGa6nLfuL8WoFHyKFLFayF5Q2','user@soundmate.com','Regular User','user','2025-06-08 22:22:09'),
 (4,'mytestuser','$2b$10$XXXXXXXXXXXXXX','testmail@mail.com','Test User','user','2025-06-08 22:22:09'),
@@ -83,7 +80,8 @@ INSERT INTO users (id, username, password, email, name, role, created_at) VALUES
 (17,'Jxñn','$2b$10$PTJnhiIGqo.Smm3bor.Z/6UqePOGptF6KNwrs8DMHqAe','navas@gmail.com','Jxñn','user','2025-06-15 01:22:43'),
 (18,'ssdfgrg','$2b$10$trqRAwljw6BpxyCzV1NoGUG3H5vjtP3itCZ.i','efrgt@gmail.com','efrgt','user','2025-06-15 02:04:35'),
 (19,'tgbvuh','$2b$10$uFzfoqzRNz6jYixcuhLA0b4vFwmKtNlz7kBytIGc9Zw7vMBEtQC','rachel.yostrov@gmail.com','vbyhujnmk','user','2025-06-15 02:04:35'),
-(23,'sdfgtgy','$2b$10$6kEz6MgeJxCkN5HR7BUu9.prk7mQ-fzHkysqgG.QsjwhsYQOQNG','rachfcvtybujnmkleylostrov@gmail.com','rctvbyujnimk','user','2025-06-15 02:05:45');
+(23,'sdfgtgy','$2b$10$6kEz6MgeJxCkN5HR7BUu9.prk7mQ-fzHkysqgG.QsjwhsYQOQNG','rachfcvtybujnmkleylostrov@gmail.com','rctvbyujnimk','user','2025-06-15 02:05:45'),
+(24,'racheli',NULL,'rachlios2005@gmail.com','racheli','pro','2025-06-15 02:05:45');
 
 -- הכנסת נתונים לטבלת images
 INSERT INTO images (id, user_id, url, mood, created_at) VALUES
@@ -109,16 +107,16 @@ INSERT INTO images (id, user_id, url, mood, created_at) VALUES
 (20,17,'https://res.cloudinary.com/dypp3nm8u/image/upload/v1749756387/boqumcd1jmrmgn8dfxj.jpg','neutral','2025-06-15 00:26:40');
 
 -- הכנסת נתונים לטבלת playlists
-INSERT INTO playlists (id, image_id, mood, name, description, created_at, likes, dislikes) VALUES
-(1,1,'happy','Admin Happy Playlist','פלייליסט שמח של אדמין','2025-06-08 22:22:09',2,0),
-(2,1,'surprise','ProUser Chill','רפאל עונג מסיליליפין','2025-06-08 22:22:09',0,0),
-(3,3,'sad','User Sad Songs','ליגריל בובע מסיליליפין','2025-06-08 22:22:09',0,1),
-(4,NULL,'calm','מיינד נודר',NULL,'2025-06-09 23:49:01',0,0),
-(5,NULL,'energetic','ניצבפוק דינע',NULL,'2025-06-09 23:49:01',0,0),
-(6,NULL,'romantic','הנשמת נרועמ קרד',NULL,'2025-06-09 23:49:01',0,0),
-(7,NULL,'neutral','שונמר תמדר',NULL,'2025-06-09 23:49:01',0,1),
-(8,NULL,'fear','נרוטסמ נרוטסמ',NULL,'2025-06-09 23:49:01',1,0),
-(9,NULL,'angry','בעי טבעי','פלייליסט של שירים כועסים','2025-06-09 23:49:01',0,0);
+INSERT INTO playlists (id, mood, name, description, created_at, likes, dislikes) VALUES
+(1,'happy','Happy Playlist','Happy and rhythmic melodies ','2025-06-08 22:22:09',2,0),
+(2,'surprise','Surprise Chill','Calm and soothing pleasantries','2025-06-08 22:22:09',0,0),
+(3,'sad','Sad Songs','Sad melodies','2025-06-08 22:22:09',0,1),
+(4,'calm','Calm Playlist',NULL,'2025-06-09 23:49:01',0,0),
+(5,'energetic','Energetic Songs',NULL,'2025-06-09 23:49:01',0,0),
+(6,'romantic','Romantic Songs',NULL,'2025-06-09 23:49:01',0,0),
+(7,'neutral','Neutral Playlist',NULL,'2025-06-09 23:49:01',0,1),
+(8,'fear','Fear Chill',NULL,'2025-06-09 23:49:01',1,0),
+(9,'angry','Angry Songs',NULL,'2025-06-09 23:49:01',0,0);
 
 
 -- הכנסת נתונים לטבלת songs (כל השירים מהתמונה)
