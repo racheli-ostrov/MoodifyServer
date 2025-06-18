@@ -10,20 +10,15 @@ exports.googleLogin = async (req, res) => {
   try {
     const { token } = req.body;
     if (!token) return res.status(400).json({ error: "Missing token" });
-
     const ticket = await client.verifyIdToken({
       idToken: token,
       audience: process.env.VITE_GOOGLE_CLIENT_ID,
     });
-
     const payload = ticket.getPayload();
     const { email, name } = payload;
-
     if (!email || !name) return res.status(400).json({ error: "Invalid Google payload" });
-
     let user = await usersService.getByEmail(email);
     let isNewUser = false;
-
     if (!user) {
       await usersService.create({
         username: email,
@@ -35,38 +30,27 @@ exports.googleLogin = async (req, res) => {
       user = await usersService.getByEmail(email);
       isNewUser = true;
     }
-
-    // שליחת מייל רק למשתמש חדש
     if (isNewUser) {
       try {
         await sendWelcomeEmail(user.email, user.name);
       } catch (mailErr) {
         console.error("MAIL ERROR (Google):", mailErr.message);
-        // לא עוצרים את התהליך אם יש בעיה בשליחת מייל
       }
     }
-
     const jwtToken = jwt.sign(
       { id: user.id, role: user.role },
       process.env.JWT_SECRET,
       { expiresIn: "7d" }
     );
-
  res
     .cookie("token", jwtToken, {
       httpOnly: true,
       sameSite: "Lax",
-      secure: false, // true אם תעברי ל-HTTPS
+      secure: false, 
       path: "/",
       maxAge: 1000 * 60 * 60 * 6
     })
     .json({ user });
-
-    // res.json({
-    //   token: jwtToken,
-    //   user,
-    // });
-
   } catch (err) {
     console.error("Google login error:", err);
     res.status(500).json({ error: "Google login failed" });
