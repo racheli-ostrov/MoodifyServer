@@ -40,12 +40,12 @@ export default function UpgradeSuccess() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-purple-100 to-pink-100 p-6">
       <div className="bg-white shadow-xl rounded-3xl p-8 max-w-lg text-center animate-fade-in">
-        <h1 className="text-3xl font-bold text-purple-700 mb-4">🎉 ברוך הבא ל־SoundMate {plan}!</h1>
+        <h1 className="text-3xl font-bold text-purple-700 mb-4">🎉 Welcome to SoundMate {plan}!</h1>
         <p className="text-gray-700 text-lg mb-2">
-          {user?.name ? `שלום ${user.name},` : "השדרוג שלך בוצע בהצלחה!"}
+          {user?.name ? `Hello ${user.name},` : "Your upgrade has been successful!"}
         </p>
         <p className="text-gray-700 text-lg mb-4">
-          אתה כעת משתמש <span className="font-bold text-purple-600">{plan}</span> עם כל ההטבות הפעילות.
+          You are now a <span className="font-bold text-purple-600">{plan}</span> user with all active benefits.
         </p>
         <div className="flex items-center justify-center gap-4 mb-6">
           {user?.image && (
@@ -57,16 +57,16 @@ export default function UpgradeSuccess() {
           )}
           <div className="text-left">
             <p className="font-semibold">{user?.username}</p>
-            <p className="text-sm text-gray-500">סטטוס: {plan} ✅</p>
-            <p className="text-sm text-gray-500">שודרג בתאריך: {timestamp}</p>
+            <p className="text-sm text-gray-500">Status: {plan} ✅</p>
+            <p className="text-sm text-gray-500">Upgraded on: {timestamp}</p>
           </div>
         </div>
-        <p className="text-sm text-gray-500">מעבירים אותך לפרופיל בעוד מספר שניות...</p>
+        <p className="text-sm text-gray-500">You will be redirected to your profile in a few seconds...</p>
         <button
           onClick={() => navigate("/profile")}
           className="mt-6 bg-purple-600 text-white px-5 py-2 rounded-full hover:bg-purple-700 transition"
         >
-          עבור לפרופיל עכשיו
+          Go to profile now
         </button>
       </div>
     </div>

@@ -1,0 +1,721 @@
+/* .upload-file-container {
+  text-align: center;
+  padding: 2em;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+  margin: 2em auto;
+  width: 90%;       
+}
+
+.upload-file-container input[type="file"] {
+  margin: 1em 0;
+  font-size: 1em;
+}
+
+.preview-img {
+  margin-top: 1.5em;
+  width: 150px;
+  border-radius: 12px;
+  box-shadow: 0 0 6px rgba(0,0,0,0.3);
+}
+
+h3{
+  color: #333;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modal-content {
+  background: white;
+  padding: 2em;
+  border-radius: 12px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.modal-title {
+  font-size: 1.5rem;
+  margin-bottom: 0.5em;
+  font-weight: bold;
+}
+
+.modal-message {
+  font-size: 1rem;
+  margin-bottom: 1.5em;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 1em;
+}
+
+.modal-btn-primary {
+  background-color: #1a73e8;
+  color: white;
+  border: none;
+  padding: 0.6em 1.2em;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.modal-btn-secondary {
+  background-color: #eee;
+  color: #333;
+  border: none;
+  padding: 0.6em 1.2em;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.upload-form {
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
+  padding: 2rem;
+  max-width: 460px;
+  margin: 3rem auto;
+  box-shadow: 0 0 20px rgba(0,0,0,0.4);
+  color: #fff;
+  text-align: center;
+  backdrop-filter: blur(10px);
+}
+
+.upload-form h4 {
+  font-size: 1.5rem;
+  margin-bottom: 1.2rem;
+}
+
+.upload-form input[type="file"],
+.upload-form button {
+  width: 100%;
+  padding: 0.75rem;
+  margin-top: 0.8rem;
+  font-size: 1rem;
+  border-radius: 12px;
+  border: none;
+  outline: none;
+}
+
+.upload-form input[type="file"] {
+  background: #fff;
+  color: #000;
+  cursor: pointer;
+}
+
+.upload-form button {
+  background: linear-gradient(to right, #ff758c, #ff7eb3);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.upload-form button:hover {
+  transform: scale(1.03);
+}
+
+.upload-form img {
+  margin-top: 1em;
+  max-width: 220px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(255,255,255,0.1);
+}
+
+.upload-form .webcam-wrapper {
+  margin-bottom: 1em;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex; justify-content: center; align-items: center;
+  z-index: 9999;
+}
+
+.modal-content {
+  background: #222;
+  color: white;
+  padding: 2rem;
+  border-radius: 20px;
+  max-width: 400px;
+  text-align: center;
+}
+
+.modal-title {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  color: #ff7eb3;
+}
+
+.modal-message {
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.modal-btn-primary,
+.modal-btn-secondary {
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.2s ease;
+}
+
+.modal-btn-primary {
+  background: #bb86fc;
+  color: white;
+}
+
+.modal-btn-secondary {
+  background: #444;
+  color: white;
+}
+
+.modal-btn-primary:hover,
+.modal-btn-secondary:hover {
+  transform: scale(1.05);
+} */
+h3{
+  color:black
+}
+/* .uploadPageBg {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #d16ba5 0%, #86a8e7 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 40px;
+} */
+
+.greeting {
+  color: #fff;
+  font-size: 2em;
+  font-weight: bold;
+  margin-bottom: 0.2em;
+  text-align: center;
+  text-shadow: 0 2px 8px #0002;
+}
+
+.feelingTitle {
+  color: #fff;
+  font-size: 2.7em;
+  font-weight: bold;
+  margin-bottom: 0.2em;
+  text-align: center;
+  text-shadow: 0 2px 8px #0002;
+}
+
+.feelingSubtitle {
+  color: #f5f5f5;
+  font-size: 1.1em;
+  margin-bottom: 2.5em;
+  text-align: center;
+  text-shadow: 0 2px 8px #0001;
+}
+
+.uploadForm {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 16px #0001;
+  padding: 2.5em 2em 2em 2em;
+  max-width: 370px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  font-size: 1.1em;
+  font-weight: bold;
+  margin-bottom: 1.2em;
+  color: #222;
+  text-align: center;
+}
+
+.avatarPreview {
+  background: #f2f3f7;
+  border-radius: 50%;
+  width: 110px;
+  height: 110px;
+  margin: 0 auto 1.2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 60px;
+  color: #b0b8c1;
+}
+
+.imagePreviewWrapper {
+  margin: 1em 0;
+}
+
+.imagePreview {
+  width: 110px;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px #0001;
+}
+
+.mainUploadBtn {
+  background: #e3f2fd;
+  color: #1976d2;
+  border: none;
+  border-radius: 20px;
+  padding: 0.7em 1.5em;
+  font-size: 1.1em;
+  cursor: pointer;
+  margin-bottom: 1em;
+  transition: background 0.2s;
+}
+.mainUploadBtn:hover {
+  background: #bbdefb;
+}
+
+.uploadOptions {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  margin-top: 1em;
+  box-shadow: 0 2px 8px #0002;
+  padding: 1em;
+  width: 100%;
+}
+
+.optionBtn {
+  display: block;
+  width: 100%;
+  margin-bottom: 0.5em;
+  background: #e3f2fd;
+  color: #1976d2;
+  border: none;
+  border-radius: 12px;
+  padding: 0.7em;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background 0.2s;
+}
+.optionBtn:hover {
+  background: #bbdefb;
+}
+
+.dragArea {
+  border: 2px dashed #b0b8c1;
+  border-radius: 12px;
+  padding: 1em;
+  color: #b0b8c1;
+  font-size: 1em;
+  text-align: center;
+}
+
+.webcamWrapper {
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.webcamView {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px #ddd;
+}
+
+.takePhotoBtn {
+  margin-top: 8px;
+  margin-left: 8px;
+  background: #e3f2fd;
+  color: #1976d2;
+  border: none;
+  border-radius: 12px;
+  padding: 0.7em 1.2em;
+  cursor: pointer;
+  font-size: 1em;
+}
+.takePhotoBtn:hover {
+  background: #bbdefb;
+}
+
+.cancelBtn {
+  margin-top: 8px;
+  background: #f5f5f5;
+  color: #888;
+  border: none;
+  border-radius: 12px;
+  padding: 0.7em 1.2em;
+  cursor: pointer;
+  font-size: 1em;
+}
+.cancelBtn:hover {
+  background: #e0e0e0;
+}
+
+.analyzeBtn {
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 0.7em 1.5em;
+  font-size: 1.1em;
+  cursor: pointer;
+  margin-top: 1em;
+  transition: background 0.2s;
+}
+.analyzeBtn:hover {
+  background: #1565c0;
+}
+
+.analysisResult {
+  margin-top: 1em;
+  text-align: center;
+}
+
+.showPlaylistsBtn {
+  background: #e3f2fd;
+  color: #1976d2;
+  border: 2px solid #1976d2;
+  border-radius: 20px;
+  padding: 0.5em 1em;
+  font-size: 0.95em;
+  cursor: pointer;
+  margin-top: 1em;
+  transition: background 0.2s;
+}
+.showPlaylistsBtn:hover {
+  background: #bbdefb;
+}
+
+.playlistContainer {
+  margin-top: 2em;
+}
+
+.resetBtn {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: #e3f2fd;
+  color: #1976d2;
+  border: 2px solid #1976d2;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3em;
+  cursor: pointer;
+  z-index: 2;
+  transition: background 0.2s;
+}
+.resetBtn:hover {
+  background: #bbdefb;
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+.modalContent {
+  background: #fff;
+  border-radius: 16px;
+  padding: 2em;
+  box-shadow: 0 2px 16px #0002;
+  max-width: 350px;
+  width: 100%;
+  text-align: center;
+}
+.modalTitle {
+  font-size: 1.3em;
+  font-weight: bold;
+  margin-bottom: 0.5em;
+}
+.modalMessage {
+  color: #444;
+  margin-bottom: 1.2em;
+}
+.modalButtons {
+  display: flex;
+  gap: 1em;
+  justify-content: center;
+}
+.modalPrimaryBtn {
+  background: #1976d2;
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 0.7em 1.2em;
+  cursor: pointer;
+  font-size: 1em;
+}
+.modalSecondaryBtn {
+  background: #f5f5f5;
+  color: #888;
+  border: none;
+  border-radius: 12px;
+  padding: 0.7em 1.2em;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+/* UploadImage.module.css - upgraded to beautiful Google-like card design */
+
+
+.uploadForm {
+  max-width: 420px;
+  background: #ffffff;
+  border-radius: 24px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  padding: 2.5em 2em;
+  text-align: center;
+  position: relative;
+  transition: all 0.3s ease-in-out;
+  width: 100%;
+  border: 1px solid #1a73e8;
+}
+
+.resetBtn {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: #f0f4ff;
+  color: #3367d6;
+  border: 1px solid #1a73e8;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2em;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+.title {
+  margin-bottom: 1.2em;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #212121;
+}
+
+.avatarPreview {
+  background: #f2f5f8;
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 1.2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 64px;
+  color: #90a4ae;
+}
+
+.imagePreviewWrapper {
+  margin: 1em 0;
+}
+
+.imagePreview {
+  max-width: 220px;
+  max-height: 220px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.mainUploadBtn {
+  background: #e8f0fe;
+  color: #1a73e8;
+  border: none;
+  border-radius: 24px;
+  padding: 0.75em 1.8em;
+  font-size: 1em;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 1em;
+  transition: background 0.3s;
+}
+
+.mainUploadBtn:hover {
+  background: #d2e3fc;
+}
+
+.uploadOptions {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 16px;
+  margin-top: 1em;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  padding: 1.5em;
+}
+
+.optionBtn {
+  display: block;
+  width: 100%;
+  margin-bottom: 0.6em;
+  background: #e8f0fe;
+  border: none;
+  border-radius: 16px;
+  padding: 0.8em;
+  font-weight: 500;
+  cursor: pointer;
+  font-size: 0.95em;
+}
+
+.dragArea {
+  border: 2px dashed #cfd8dc;
+  border-radius: 16px;
+  padding: 1em;
+  color: #90a4ae;
+  font-size: 0.95em;
+  margin-top: 0.6em;
+  background: #fafafa;
+}
+
+.webcamWrapper {
+  margin-bottom: 10px;
+}
+
+.webcamView {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px #ddd;
+}
+
+.takePhotoBtn,
+.cancelBtn {
+  margin-top: 8px;
+  margin-left: 4px;
+  background: #f0f4ff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5em 1.2em;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.analyzeBtn {
+  background: #8e24aa;
+  color: #fff;
+  border: none;
+  border-radius: 24px;
+  padding: 0.75em 1.8em;
+  font-size: 1em;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 1em;
+  transition: background 0.3s;
+}
+
+.analyzeBtn:hover {
+  background: #7b1fa2;
+}
+
+.analysisResult {
+  margin-top: 2em;
+}
+
+.showPlaylistsBtn {
+  background: #e8f0fe;
+  color: #1a73e8;
+  border: 2px solid #1a73e8;
+  border-radius: 24px;
+  padding: 0.6em 1.4em;
+  font-size: 0.95em;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 1em;
+}
+
+.playlistContainer {
+  margin-top: 2em;
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modalContent {
+  background: white;
+  padding: 2em;
+  border-radius: 16px;
+  max-width: 420px;
+  width: 100%;
+  box-shadow: 0 0 18px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.modalTitle {
+  font-size: 1.5em;
+  margin-bottom: 0.6em;
+  font-weight: bold;
+  color: #222;
+}
+
+.modalMessage {
+  font-size: 1em;
+  margin-bottom: 1.5em;
+  color: #555;
+}
+
+.modalButtons {
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+  flex-wrap: wrap;
+}
+
+.modalPrimaryBtn,
+.modalSecondaryBtn {
+  padding: 0.6em 1.4em;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  border: none;
+  font-size: 1em;
+}
+
+.modalPrimaryBtn {
+  background: #1a73e8;
+  color: white;
+}
+
+.modalSecondaryBtn {
+  background: #f1f3f4;
+  color: #444;
+}
