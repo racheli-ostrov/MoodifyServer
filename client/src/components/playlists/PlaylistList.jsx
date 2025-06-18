@@ -50,7 +50,7 @@ export default function PlaylistList() {
         >
           <h3>{pl.name}</h3>
           <p>Mood: {pl.mood}</p>
-          <button onClick={() => handleSelect(pl.id)}>Show Songs</button>
+          <button className="show-songs-btn" onClick={() => handleSelect(pl.id)}>Show Songs</button>
         </div>
       ))}
       {selectedPlaylist && <PlaylistDetails playlist={selectedPlaylist} />}

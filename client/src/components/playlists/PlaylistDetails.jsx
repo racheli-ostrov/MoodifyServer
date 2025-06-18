@@ -134,7 +134,7 @@ export default function PlaylistDetails({ playlist }) {
   return (
     <div className={styles.container} style={{ backgroundColor: moodData.color }}>
       <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "1em" }}>
-        <button type="button" onClick={() => setViewMode((prev) => (prev === "player" ? "list" : "player"))}>
+        <button className="show-songs-btn" type="button" onClick={() => setViewMode((prev) => (prev === "player" ? "list" : "player"))}>
           Switch to {viewMode === "player" ? "List" : "Player"} View
         </button>
       </div>
@@ -146,18 +146,18 @@ export default function PlaylistDetails({ playlist }) {
       {viewMode === "player" && (
         <>
           <div style={{ display: "flex", alignItems: "center", gap: "1em", marginBottom: "1em" }}>
-            <button type="button" onClick={handleLike} disabled={likeLoading}>{likeLoading ? "⏳" : "👍"}</button>
+            <button className="show-songs-btn" type="button" onClick={handleLike} disabled={likeLoading}>{likeLoading ? "⏳" : "👍"}</button>
             <span>{likes}</span>
-            <button type="button" onClick={handleDislike} disabled={dislikeLoading}>{dislikeLoading ? "⏳" : "👎"}</button>
+            <button className="show-songs-btn" type="button" onClick={handleDislike} disabled={dislikeLoading}>{dislikeLoading ? "⏳" : "👎"}</button>
             <span>{dislikes}</span>
           </div>
           <h4 style={{ textAlign: "center" }}>{currentSong.title}</h4>
           <YouTubePlayer videoUrl={currentSong.url} onEnd={handleNext} key={autoPlayTrigger} />
           <div style={{ display: "flex", justifyContent: "center", gap: "1em" }}>
-            <button type="button" onClick={stopAnyOtherPlayingVideo}>⏸️ stop</button>
-            <button type="button" onClick={() => document.querySelector('iframe')?.contentWindow?.postMessage('{"event":"command","func":"playVideo","args":""}', '*')}>▶️ play</button>
-            <button type="button" onClick={handlePrev}>⏮️ back</button>
-            <button type="button" onClick={handleNext}>⏭️ next</button>
+            <button className="show-songs-btn" type="button" onClick={stopAnyOtherPlayingVideo}>⏸️ stop</button>
+            <button className="show-songs-btn" type="button" onClick={() => document.querySelector('iframe')?.contentWindow?.postMessage('{"event":"command","func":"playVideo","args":""}', '*')}>▶️ play</button>
+            <button className="show-songs-btn" type="button" onClick={handlePrev}>⏮️ back</button>
+            <button className="show-songs-btn" type="button" onClick={handleNext}>⏭️ next</button>
           </div>
         </>
       )}
