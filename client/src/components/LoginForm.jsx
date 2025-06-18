@@ -16,42 +16,47 @@ export default function LoginForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ maxWidth: "400px", margin: "auto" }}>
-      <h2>התחברות</h2>
+  <div className="login-page">
+    <form className="login-form" onSubmit={handleSubmit}>
+      <h2 className="form-title">Login</h2>
 
       <input
+        className="form-input"
         type="text"
-        placeholder="שם משתמש או אימייל"
+        placeholder="Username or Email"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
         required
       />
       <input
+        className="form-input"
         type="password"
-        placeholder="סיסמה"
+        placeholder="Password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         required
       />
 
-      <button type="submit">התחבר</button>
+      <button className="form-button" type="submit">Login</button>
 
-      <div style={{ marginTop: "1em" }}>
-        עדיין לא רשום? <Link to="/register">הרשמה</Link>
+      <div className="form-link">
+        Not registered yet? <Link to="/register">Sign up</Link>
       </div>
 
-      <hr />
-
-      <GoogleLogin
-        onSuccess={async (credentialResponse) => {
-          const token = credentialResponse.credential;
-          const success = await googleLogin(token);
-          if (success) navigate("/home");
-        }}
-        onError={() => {
-          alert("שגיאת התחברות עם גוגל");
-        }}
-      />
+      <div className="google-login-section">
+        <hr className="form-divider" />
+        <GoogleLogin
+          onSuccess={async (credentialResponse) => {
+            const token = credentialResponse.credential;
+            const success = await googleLogin(token);
+            if (success) navigate("/home");
+          }}
+          onError={() => {
+            alert("Google login failed");
+          }}
+        />
+      </div>
     </form>
-  );
+  </div>
+); 
 }

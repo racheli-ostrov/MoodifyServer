@@ -19,58 +19,63 @@ export default function RegisterForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} style={{ maxWidth: "400px", margin: "auto" }}>
-      <h2>הרשמה</h2>
+    <div className="login-page">
+      <form className="login-form" onSubmit={handleSubmit}>
+        <h2 className="form-title">Register</h2>
 
-      <input
-        type="text"
-        placeholder="שם משתמש"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        required
-      />
-      <input
-        type="password"
-        placeholder="סיסמה"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        required
-      />
-      <input
-        type="text"
-        placeholder="שם מלא"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        required
-      />
-      <input
-        type="email"
-        placeholder="אימייל"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        required
-      />
+        <input
+          className="form-input"
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          required
+        />
+        <input
+          className="form-input"
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        <input
+          className="form-input"
+          type="text"
+          placeholder="Full Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          required
+        />
+        <input
+          className="form-input"
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
 
-      <button type="submit">הרשם</button>
+        <button className="form-button" type="submit">Register</button>
 
-      <div style={{ marginTop: "1em" }}>
-        כבר רשום? <Link to="/login">התחבר כאן</Link>
-      </div>
+        <div className="form-link">
+          Already have an account? <Link to="/login">Login</Link>
+        </div>
 
-      <hr />
-
-      <GoogleLogin
-        onSuccess={async (credentialResponse) => {
-          console.log("🎫 credentialResponse:", credentialResponse);
-          console.log("🧪 credential:", credentialResponse.credential);
-          const token = credentialResponse.credential;
-          const success = await googleLogin(token);
-          if (success) navigate("/home");
-        }}
-        onError={() => {
-          alert("שגיאת התחברות עם גוגל");
-        }}
-      />
-    </form>
+        <div className="google-login-section">
+          <hr className="form-divider" />
+          <GoogleLogin
+            onSuccess={async (credentialResponse) => {
+              const token = credentialResponse.credential;
+              const success = await googleLogin(token);
+              if (success) navigate("/home");
+            }}
+            onError={() => {
+              alert("Google login failed");
+            }}
+          />
+        </div>
+      </form>
+    </div>
   );
 }

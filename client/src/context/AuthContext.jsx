@@ -7,20 +7,20 @@ export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
-    // בדיקת התחברות אוטומטית בטעינה
-useEffect(() => {
-  async function fetchUser() {
-    try {
-      const res = await api.get("/users/me", { withCredentials: true });
-      setUser(res.data.user); // שים לב! ייתכן שצריך res.data.user ולא res.data
-    } catch {
-      setUser(null);
-    } finally {
-      setLoading(false);
+  useEffect(() => {
+    async function fetchUser() {
+      try {
+        const res = await api.get("/users/me", { withCredentials: true });
+        setUser(res.data.user);
+      } catch {
+        setUser(null);
+      } finally {
+        setLoading(false);
+      }
     }
-  }
-  fetchUser();
-}, []);
+    fetchUser();
+  }, []);
+
   const login = async (username, password) => {
     try {
       const res = await api.post(
@@ -31,12 +31,11 @@ useEffect(() => {
       setUser(res.data.user);
       return true;
     } catch {
-      alert("שגיאת התחברות");
+      alert("Login error");
       return false;
     }
   };
 
-  // ✅ התחברות דרך Google OAuth
   const googleLogin = async (token) => {
     try {
       const res = await api.post(
@@ -47,13 +46,11 @@ useEffect(() => {
       setUser(res.data.user);
       return true;
     } catch (err) {
-      alert("Google login error", err.response?.data || err.message || err);
       alert("Google Sign In Failed");
       return false;
     }
   };
 
-  // ✅ הרשמה ואז התחברות אוטומטית
   const register = async (username, password, email, name) => {
     try {
       await api.post("/users/register", {
@@ -65,25 +62,23 @@ useEffect(() => {
       return await login(username, password);
     } catch (e) {
       if (e.response?.data?.error) alert(e.response.data.error);
-      else alert("שגיאת הרשמה");
+      else alert("Registration error");
       return false;
     }
   };
 
-  // ✅ התנתקות מהשרת ומנקה את ה־state
   const logout = async () => {
     try {
       await api.post("/users/logout", {}, { withCredentials: true });
     } catch (e) {
-      console.error("שגיאה בלוגאאוט", e);
+      console.error("Logout error", e);
     }
     setUser(null);
-    // navigate("/login");
   };
-  // if (loading) return <div>טוען...</div>;
+
   return (
     <AuthContext.Provider
-      value={{ user, login, googleLogin, register, logout, setUser, loading  }}
+      value={{ user, login, googleLogin, register, logout, setUser, loading }}
     >
       {children}
     </AuthContext.Provider>

@@ -1,3 +1,3 @@
 export default function NotFound() {
-  return <h2>עמוד לא נמצא</h2>;
+  return <h2>page not found</h2>;
 }
