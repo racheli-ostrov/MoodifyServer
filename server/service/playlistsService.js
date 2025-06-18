@@ -9,14 +9,12 @@ exports.getByUserId = async (user_id) => {
   );
   return rows;
 };
+
 exports.getById = async (id) => {
   const [rows] = await pool.query('SELECT * FROM playlists WHERE id = ?', [id]);
   return rows[0];
 };
-exports.getMoodFromImage = async (image_id) => {
-  const [rows] = await pool.query('SELECT mood FROM images WHERE id = ?', [image_id]);
-  return rows[0]?.mood;
-};
+
 exports.getByMood = async (mood) => {
   const [rows] = await pool.query(
     'SELECT * FROM playlists WHERE LOWER(mood) = LOWER(?)',
@@ -24,6 +22,7 @@ exports.getByMood = async (mood) => {
   );
   return rows;
 };
+
 exports.getUserVote = async (userId, playlistId) => {
   const [rows] = await pool.query(
     "SELECT vote FROM playlist_votes WHERE user_id = ? AND playlist_id = ?",
@@ -61,6 +60,7 @@ exports.getPlaylistVotes = async (playlistId) => {
   );
   return rows[0];
 };
+
 exports.userHasPlaylist = async (userId, playlistId) => {
   const [rows] = await pool.query(
     "SELECT 1 FROM user_playlists WHERE user_id = ? AND playlist_id = ?",
@@ -75,12 +75,14 @@ exports.assignPlaylistToUser = async (userId, playlistId) => {
     [userId, playlistId]
   );
 };
+
 exports.editPlaylist = async ({ id, name, description, mood }) => {
   await pool.query(
     'UPDATE playlists SET name = ?, description = ?, mood = ? WHERE id = ?',
     [name, description, mood, id]
   );
 };
+
 exports.countUserPlaylists = async (userId) => {
   const [rows] = await pool.query(
     "SELECT COUNT(*) AS count FROM user_playlists WHERE user_id = ?",

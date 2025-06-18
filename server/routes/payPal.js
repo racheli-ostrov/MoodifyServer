@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const paypal = require('@paypal/checkout-server-sdk');
 
-// הגדרת הסביבה של פייפאל
 const client = new paypal.core.PayPalHttpClient(
   new paypal.core.SandboxEnvironment(
     process.env.PAYPAL_CLIENT_ID,
@@ -18,9 +17,7 @@ router.post('/create', async (req, res) => {
     "year": "80.00",
     "Two years": "140.00",
   };
-
   const amount = priceMap[plan] || "8.00";
-
   const request = new paypal.orders.OrdersCreateRequest();
   request.prefer("return=representation");
   request.requestBody({
@@ -36,7 +33,6 @@ router.post('/create', async (req, res) => {
       cancel_url: `${process.env.VITE_API_URL}/upgrade/cancel`,
     },
   });
-
   try {
     const order = await client.execute(request);
     const approvalUrl = order.result.links.find(link => link.rel === 'approve').href;

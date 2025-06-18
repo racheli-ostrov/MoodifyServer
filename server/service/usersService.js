@@ -1,24 +1,10 @@
 const pool = require('../../db/db');
 
-/**
- * מחזיר משתמש לפי מזהה
- */
 exports.getUserById = async (id) => {
   const [rows] = await pool.query('SELECT * FROM users WHERE id = ?', [id]);
   return rows[0];
 };
 
-/**
- * מחזיר משתמש לפי שם משתמש
- */
-exports.getUserByUsername = async (username) => {
-  const [rows] = await pool.query('SELECT * FROM users WHERE username = ?', [username]);
-  return rows[0];
-};
-
-/**
- * יוצר משתמש חדש בטבלה (לשימוש בהרשמה רגילה)
- */
 exports.createUser = async ({ username, password, email, name, role }) => {
   try {
     const [result] = await pool.query(
@@ -32,37 +18,11 @@ exports.createUser = async ({ username, password, email, name, role }) => {
   }
 };
 
-/**
- * יוצר משתמש חדש עם סיסמה null (לשימוש בהרשמה עם Google)
- */
-exports.create = async ({ username, email, name, password = null, role = 'user' }) => {
-  const [result] = await pool.query(
-    'INSERT INTO users (username, email, name, password, role) VALUES (?, ?, ?, ?, ?)',
-    [username, email, name, password, role]
-  );
-  return result.insertId;
+exports.upgradeToPro = async (userId) => {
+  await pool.query("UPDATE users SET role = 'pro' WHERE id = ?", [userId]);
 };
 
-/**
- * מחזיר את כל המשתמשים
- */
-exports.getAllUsers = async () => {
-  const [rows] = await pool.query('SELECT id, username, name, email, role FROM users');
-  return rows;
-};
-
-/**
- * מחזיר משתמש לפי מייל
- */
-exports.getByEmail = async (email) => {
-  const [rows] = await pool.query('SELECT * FROM users WHERE email = ?', [email]);
-  return rows[0] || null;
-};
-
-/**
- * מחזיר משתמש לפי מזהה (שכפול פונקציה getUserById עם שם שונה)
- */
-exports.getById = async (id) => {
-  const [rows] = await pool.query('SELECT * FROM users WHERE id = ?', [id]);
-  return rows[0] || null;
+exports.getUserByUsername = async (username) => {
+  const [rows] = await pool.query('SELECT * FROM users WHERE username = ?', [username]);
+  return rows[0];
 };

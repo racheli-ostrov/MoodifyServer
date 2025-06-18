@@ -3,7 +3,6 @@ const multer = require('multer');
 const router = express.Router();
 const path = require('path');
 
-// הגדרת יעד לקבצים
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, 'uploads'),
   filename: (req, file, cb) => {
