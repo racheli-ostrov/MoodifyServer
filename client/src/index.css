@@ -844,7 +844,7 @@ img.preview-img {
 
 .photos-container {
   padding: 2em;
-  max-width: 1200px;
+  /* max-width: 1200px; */
   margin: auto;
   margin-left: 250px;
 }
@@ -946,4 +946,134 @@ img.preview-img {
   .photos-name input {
     width: 100%;
   }
+}
+
+
+.photos-container {
+  padding: 2em;
+}
+
+.photos-controls {
+  margin: 1em 0;
+  display: flex;
+  gap: 1em;
+  flex-wrap: wrap;
+}
+
+.photos-controls input {
+  flex: 1;
+  padding: 0.5em;
+}
+
+.photos-controls button {
+  padding: 0.5em 1em;
+  background-color: #eee;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.photos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1em;
+}
+
+.photos-card {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 0.5em;
+  background: #fff;
+}
+
+.photos-image {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.photos-mood {
+  text-align: center;
+  margin-top: 0.5em;
+}
+
+.photos-name {
+  text-align: center;
+  font-size: 0.9em;
+  color: #555;
+}
+
+.photos-name button {
+  margin: 0 0.5em;
+}
+
+.photos-delete {
+  display: block;
+  margin: 0.5em auto 0 auto;
+  background: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 0.5em 1em;
+  cursor: pointer;
+}
+.photos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1em;
+}
+
+.photos-card {
+  width: 220px;
+}
+
+.photos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.5em;
+  justify-items: center;
+}
+.photos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.5em;
+  justify-items: center;
+  align-items: start;
+}
+
+.photos-card {
+  width: 220px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background: #fff;
+  padding: 0.5em;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+.photos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5em;
+  margin-top: 2em;
+}
+
+.photos-card {
+  width: 100%;
+  max-width: 220px;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 0.5em;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.photos-image {
+  width: 100%;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.photos-name,
+.photos-mood {
+  text-align: center;
+  font-size: 0.9em;
+  margin-top: 0.5em;
 }

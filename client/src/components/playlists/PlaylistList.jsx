@@ -40,9 +40,10 @@ export default function PlaylistList() {
   }
 
   return (
-    <div>
-      <h2>My Playlists</h2>
-      {playlists.map((pl) => (
+    <div className="playlist-page">
+      <h2 className="playlist-title">My Playlists</h2>
+       <div className="playlist-group">
+        {playlists.map((pl) => (
         <div
           key={pl.id}
           style={{ border: "1px solid #ccc", padding: "1em", marginBottom: "1em" }}
@@ -54,5 +55,6 @@ export default function PlaylistList() {
       ))}
       {selectedPlaylist && <PlaylistDetails playlist={selectedPlaylist} />}
     </div>
+     </div>
   );
 }
