@@ -21,20 +21,6 @@ useEffect(() => {
   }
   fetchUser();
 }, []);
-  // // ✅ טוען את המשתמש בעת עליית האפליקציה, לפי הטוקן שבקוקי
-  // useEffect(() => {
-  //   const fetchUser = async () => {
-  //     try {
-  //       const res = await api.get("/users/me", { withCredentials: true });
-  //       setUser(res.data.user);
-  //     } catch (err) {
-  //       setUser(null); // טוקן לא תקף או לא קיים
-  //     }
-  //   };
-  //   fetchUser();
-  // }, []);
-
-  // ✅ התחברות רגילה (שומרת טוקן ב-cookie דרך withCredentials)
   const login = async (username, password) => {
     try {
       const res = await api.post(

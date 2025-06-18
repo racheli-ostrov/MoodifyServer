@@ -78,7 +78,6 @@ export default function PlaylistList() {
   const handleSelect = async (playlistId) => {
     try {
       const res = await api.get(`/playlists/${playlistId}`);
-      navigate(`/playlists/${playlistId}`);
       setSelectedPlaylist(res.data);
     } catch (err) {
       console.error("שגיאה בקבלת פרטי פלייליסט:", err);

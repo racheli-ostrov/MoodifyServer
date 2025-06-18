@@ -128,7 +128,6 @@ const RequireAuth = ({ children }) => {
                     <Route path="/admin" element={<Admin />} />
                     <Route path="/photos" element={<Photos />} />
                     <Route path="/upgrade" element={<Upgrade />} />
-                    <Route path="/playlists/:id" element={<PlaylistDetails />} />
                     <Route path="/upgrade/success" element={<UpgradeSuccess />} />
                     <Route path="/upgrade/cancel" element={<UpgradeCancel />} />
                     <Route path="*" element={<NotFound />} />

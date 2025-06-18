@@ -1,4 +1,4 @@
-body {
+/* body {
   direction: rtl;
   font-family: sans-serif;
   background: #faf9f6;
@@ -27,7 +27,6 @@ nav a:hover, nav button:hover {
 }
 .main {
   padding: 2em;
-  /* max-width: 2600px; */
   margin: auto;
 }
 form {
@@ -38,7 +37,6 @@ form {
   padding: 2em;
   border-radius: 1em;
   box-shadow: 0 0 8px #eee;
-  /* max-width: 3500px; */
   margin: auto;
 }
 button {
@@ -163,18 +161,7 @@ h3{
   box-shadow: 2px 0 10px rgba(0,0,0,0.1);
 }
 
-/* .main-content {
-  flex: 1;
-  margin-left: 220px;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  width: 100%;
 
-} */
 
 body {
   margin: 0;
@@ -316,7 +303,6 @@ th {
   transform: scale(1.03);
 }
 
-/* Login, Register & Admin Shared Styling */
 
 .auth-container, .admin-panel {
   background: rgba(0, 0, 0, 0.5);
@@ -499,10 +485,9 @@ th {
 }
 
 .side-navbar {
-  width: 220px; /* או כל רוחב שתרצי */
+  width: 220px; 
   min-width: 220px;
   max-width: 220px;
-  /* אפשר להוסיף height: 100vh; position: sticky; top: 0; */
 }
 
 .main-content {
@@ -511,13 +496,9 @@ th {
 
   padding: 32px 24px;
    max-width: 1900px;
-  /* אין margin-right או margin-left! */
-  /* אין position: absolute או fixed */
-  /* אין max-width קטן */
   min-width: 0;
 }
 
-/* סגנון כפתור Sidebar Logout */
 .sidebar-logout {
   display: flex;
   align-items: center;
@@ -536,9 +517,260 @@ th {
   width: 180px;
   text-align: center;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-}
 
 .sidebar-logout:hover {
   background-color: #1a73e8;
   color: #fff;
+} */
+
+/* index.css – כולל עיצוב תיבת אפשרויות "העלאה" ו"צילום" כמו בגוגל */
+
+/* index.css – כולל עיצוב תיבת אפשרויות "העלאה" ו"צילום" בדיוק כמו בגוגל */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #6d14a1, #cc66ff, #e0630a, #ff9966);
+  background-size: 400% 400%;
+  animation: gradientShift 7s ease infinite;
+  color: #2e2e2e;
+  min-height: 100vh;
+  direction: rtl;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.page-container {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh;
+  padding: 2rem;
+  /* margin-inline-start: 260px; */
+}
+
+.centered-content {
+  width: 100%;
+  max-width: 750px;
+  text-align: center;
+  margin-inline: auto;
+}
+
+.main-title {
+  font-size: 3rem;
+  margin-bottom: 0.75rem;
+  color: #ffffff;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: #f5f5f5;
+  margin-bottom: 2rem;
+  font-weight: 400;
+}
+
+.upload-options {
+  background-color: #f9fbfc;
+  border-radius: 20px;
+  padding: 3rem 2rem;
+  max-width: 480px;
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.upload-options h3 {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.upload-buttons {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.upload-buttons button {
+  background-color: #e3f2fd;
+  border: 1px solid #90caf9;
+  color: #0d47a1;
+  font-weight: 500;
+  padding: 0.6rem 1.5rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.upload-buttons button:hover {
+  background-color: #bbdefb;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="file"] {
+  width: 100%;
+  padding: 12px;
+  margin: 0.5rem 0 1rem;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+button[type="submit"],
+button.analyze-button {
+  background-color: #9c27b0;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s ease;
+  margin-top: 0.5rem;
+}
+
+button.analyze-button:hover {
+  background-color: #7b1fa2;
+}
+
+.side-navbar {
+  width: 260px;
+  background-color: #212121;
+  color: #ffffff;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+  box-shadow: 6px 0 15px rgba(0, 0, 0, 0.4);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  direction: ltr;
+}
+
+.side-navbar .logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #fff;
+  text-align: center;
+}
+
+.side-navbar button {
+  background: none;
+  border: none;
+  color: #ffffff;
+  font-size: 0.95rem;
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: 0.3s;
+  border-radius: 6px;
+}
+
+.side-navbar button:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.stat-number {
+  font-weight: bold;
+  font-size: 1.2em;
+  color: #fff;
+}
+
+.user-status-badge {
+  background-color: #ffebee;
+  border: 1px solid #c62828;
+  color: #c62828;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  transition: 0.3s;
+}
+
+.user-status-badge:hover {
+  background-color: #ffcdd2;
+  border-color: #b71c1c;
+}
+
+.user-status-badge.pro {
+  background-color: #00e676;
+  color: #ffffff;
+  border: none;
+}
+
+img.preview-img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  margin-top: 1rem;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+}
+
+.error-message {
+  background: #fff3e0;
+  color: #e65100;
+  padding: 1rem;
+  border-radius: 10px;
+  text-align: center;
+  margin-top: 2rem;
+  max-width: 600px;
+  margin-inline: auto;
+}
+
+@media (max-width: 768px) {
+  .side-navbar {
+    display: none;
+  }
+  .main-content {
+    margin-inline-start: 0;
+    padding: 2rem 1rem;
+    min-height: auto;
+  }
+  .main-title {
+    font-size: 2rem;
+  }
+  .upload-buttons {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
 }

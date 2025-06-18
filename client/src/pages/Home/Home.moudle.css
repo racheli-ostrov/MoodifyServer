@@ -1,17 +1,13 @@
-* {
+/* * {
   box-sizing: border-box;
 }
 
 html, body {
-  /* margin: 0; */
   height: 100%;
-  /* overflow: hidden;  */
 }
 
 .page-container.no-scroll {
-  /* display: flex; */
   height: 100vh;
-  /* overflow: hidden; */
   font-family: "Segoe UI", sans-serif;
 }
 
@@ -19,7 +15,6 @@ html, body {
   width: 220px;
   background-color: #0e0e0e;
   padding: 2em 1em;
-  /* display: flex; */
   flex-direction: column;
   gap: 1.5em;
   align-items: flex-start;
@@ -37,7 +32,6 @@ html, body {
 }
 
 .side-navbar button {
-  /* display: flex; */
   align-items: center;
   gap: 0.6em;
   background: none;
@@ -56,13 +50,11 @@ html, body {
 
 .main-content {
   flex: 1;
-  /* display: flex; */
   justify-content: center;
   align-items: center;
   position: relative;
    max-width: 1900px;
-  /* overflow: hidden; */
-  /* margin: 0%; */
+
   width: 100%;
     margin-left: 220px;
 }
@@ -75,9 +67,9 @@ html, body {
     #5f2c82,
     #0f2027
   );
-  /* background-size: 200% 200%; */
   animation: gradientShift 15s ease infinite;
   color: white;
+  border-radius: 50px;
 }
 
 @keyframes gradientShift {
@@ -92,17 +84,6 @@ html, body {
   }
 }
 
-/* .centered-content { */
-  /* max-width: 1800px; */
-  /* background-color: rgba(255,255,255,0.1);
-  padding: 2em;
-  border-radius: 1.5em;
-  box-shadow: 0 0 20px rgba(0,0,0,0.3); */
-  /* margin: 10%;
-  text-align: center;
-  width: 900px;
-  height: 900px; */
-/* } */
 
 .main-title {
   font-size: 2.8em;
@@ -141,7 +122,6 @@ form button {
   gap: 1em;
   text-align: left;
   align-items: center;
-  /* display: flex; */
 }
 
 .side-navbar.large-buttons button div {
@@ -158,12 +138,10 @@ form button {
   background: rgba(255, 255, 255, 0.15);
   padding: 0.5em;
   border-radius: 20px;
-  /* max-width: 1400px; */
   margin: 2em auto 0 auto;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
   text-align: center;
-  /* width: 650px; */
-  /* height: 55%; */
+ 
 }
 
 .upload-card .camera-icon {
@@ -243,4 +221,5 @@ form button {
 
 h4{
   color: black;
-}
+} */
+ 

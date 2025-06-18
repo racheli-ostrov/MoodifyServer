@@ -10,35 +10,42 @@ export default function UploadImage() {
   const [loading, setLoading] = useState(false);
   const [mood, setMood] = useState(null);
   const [playlists, setPlaylists] = useState([]);
-  const [useCamera, setUseCamera] = useState(false);
-  const webcamRef = useRef(null);
-  const { user } = useContext(AuthContext);
   const [showLimitModal, setShowLimitModal] = useState(false);
   const [showImageLimitModal, setShowImageLimitModal] = useState(false);
+  const [showPlaylistsBtn, setShowPlaylistsBtn] = useState(true);
+  const [showOptions, setShowOptions] = useState(false);
+  const [showWebcam, setShowWebcam] = useState(false);
+  const fileInputRef = useRef();
+  const webcamRef = useRef();
+
+  const { user } = useContext(AuthContext);
+
+  const handleReset = () => {
+    setImage(null);
+    setPreviewUrl(null);
+    setMood(null);
+    setPlaylists([]);
+    setShowPlaylistsBtn(true);
+    setShowOptions(false);
+    setShowWebcam(false);
+    setLoading(false);
+  };
+
 
   const handleUpload = async (e) => {
-    console.log("👤 user from context:", user);
-
     e.preventDefault();
     setMood(null);
     setPlaylists([]);
-
     if (!image) return;
     if (!user) {
-      alert("יש להתחבר כדי להעלות תמונה");
+      alert("You must log in to upload a picture");
       return;
     }
-
     setLoading(true);
     const formData = new FormData();
     formData.append("image", image);
-
     try {
       const res = await api.post("/images/upload", formData
-        // headers: {
-        //   "Content-Type": "multipart/form-data",
-        //   Authorization: `Bearer ${user.token}`,
-        // },
       );
       setMood(res.data.mood.trim().toLowerCase());
     } catch (err) {
@@ -49,10 +56,9 @@ export default function UploadImage() {
       ) {
         setShowImageLimitModal(true);
       } else {
-        setMood("שגיאה: " + error);
+        setMood("Error: " + error);
       }
     }
-
     setLoading(false);
   };
 
@@ -60,7 +66,9 @@ export default function UploadImage() {
     const file = e.target.files[0];
     setImage(file);
     if (file) {
+      setImage(file);
       setPreviewUrl(URL.createObjectURL(file));
+      setShowOptions(false);
       setMood(null);
       setPlaylists([]);
     } else {
@@ -76,13 +84,27 @@ export default function UploadImage() {
         const file = new File([blob], "webcam.jpg", { type: "image/jpeg" });
         setImage(file);
         setPreviewUrl(imageSrc);
+        setShowWebcam(false);
+        setShowOptions(false);
         setUseCamera(false);
         setMood(null);
         setPlaylists([]);
+        setShowOptions(false);
       });
   };
+  const handleDrop = (e) => {
+    e.preventDefault();
+    const file = e.dataTransfer.files[0];
+    if (file) {
+      setImage(file);
+      setPreviewUrl(URL.createObjectURL(file));
+      setShowOptions(false);
+    }
+  };
+  const handleDragOver = (e) => e.preventDefault();
 
   const fetchPlaylistsByMood = async () => {
+    setShowPlaylistsBtn(false);
     try {
       const res = await api.get(`/playlists/bymood/${mood}`);
       if (res.data) {
@@ -103,18 +125,181 @@ export default function UploadImage() {
     }
   };
 
-  return (
-    <form onSubmit={handleUpload} style={{ maxWidth: 40000, margin: "auto" }}>
-      <h4>Upload Image from Computer or Camera</h4>
-      <button
-        type="button"
-        style={{ marginBottom: 8, marginTop: 4 }}
-        onClick={() => setUseCamera((v) => !v)}
-      >
-        {useCamera ? "Choose from Computer" : "Take a Picture"}
-      </button>
+  const handleCameraChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setImage(file);
+      setPreviewUrl(URL.createObjectURL(file));
+      setShowOptions(false);
+    }
+  };
 
-      {useCamera ? (
+  return (
+    <form
+      onSubmit={handleUpload}
+      style={{
+        maxWidth: 400,
+        margin: "2em auto",
+        background: "#f8fafc",
+        borderRadius: "18px",
+        boxShadow: "0 2px 12px #0001",
+        padding: "2em",
+        textAlign: "center",
+        position: "relative"
+      }}
+      onDrop={handleDrop}
+      onDragOver={handleDragOver}
+    >
+
+      {(image || mood || playlists.length > 0 || showWebcam) && (
+        <button
+          type="button"
+          onClick={handleReset}
+          title="upload a new image"
+          style={{
+            position: "absolute",
+            top: 16,
+            left: 16,
+            background: "#e3f2fd",
+            color: "#1976d2",
+            border: "2px solid #1976d2",
+            borderRadius: "50%",
+            width: 36,
+            height: 36,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: "1.3em",
+            cursor: "pointer",
+            zIndex: 2
+          }}
+        >
+          🔄
+        </button>
+      )}
+
+      {!image && (<h4 style={{ marginBottom: "1em" }}>Upload an image for sentiment analysis</h4>)}
+
+      {/* Preview an image or icon */}
+      {!previewUrl && (
+        <div
+          style={{
+            background: "#e3e7ed",
+            borderRadius: "50%",
+            width: 120,
+            height: 120,
+            margin: "0 auto 1em",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: 60,
+            color: "#b0b8c1"
+          }}
+        >
+          <span role="img" aria-label="avatar">👤</span>
+        </div>
+      )}
+      {previewUrl && (
+        <div style={{ margin: "1em 0" }}>
+          <img
+            src={previewUrl}
+            alt="preview"
+            style={{ maxWidth: "220px", maxHeight: "220px", borderRadius: "8px" }}
+          />
+        </div>
+      )}
+
+      {/* Main button to open options */}
+      {!image && !showWebcam && (
+        <button
+          type="button"
+          style={{
+            background: "#e3f2fd",
+            color: "#1976d2",
+            border: "none",
+            borderRadius: "20px",
+            padding: "0.7em 1.5em",
+            fontSize: "1.1em",
+            cursor: "pointer",
+            marginBottom: "1em"
+          }}
+          onClick={() => setShowOptions((v) => !v)}
+        >
+          Upload Image
+        </button>
+      )}
+
+      {/* Options Menu */}
+      {showOptions && !image && !showWebcam && (
+        <div
+          style={{
+            background: "#fff",
+            border: "1px solid #e0e0e0",
+            borderRadius: "12px",
+            marginTop: "1em",
+            boxShadow: "0 2px 8px #0002",
+            padding: "1em"
+          }}
+        >
+          <button
+            style={{
+              display: "block",
+              width: "100%",
+              marginBottom: "0.5em",
+              background: "#e3f2fd",
+              border: "none",
+              borderRadius: "12px",
+              padding: "0.7em",
+              cursor: "pointer"
+            }}
+            onClick={() => fileInputRef.current.click()}
+            type="button"
+          >
+            Uploading a picture from the computer
+          </button>
+          <button
+            style={{
+              display: "block",
+              width: "100%",
+              marginBottom: "0.5em",
+              background: "#e3f2fd",
+              border: "none",
+              borderRadius: "12px",
+              padding: "0.7em",
+              cursor: "pointer"
+            }}
+            onClick={() => {
+              setShowWebcam(true);
+              setShowOptions(false);
+            }}
+            type="button"
+          >
+            taking a photo
+          </button>
+          <div
+            style={{
+              border: "2px dashed #b0b8c1",
+              borderRadius: "12px",
+              padding: "1em",
+              color: "#b0b8c1",
+              fontSize: "1em"
+            }}
+          >
+            Drag an image here
+          </div>
+        </div>
+      )}
+
+      {/* Hidden inputs */}
+      <input
+        type="file"
+        accept="image/*"
+        style={{ display: "none" }}
+        ref={fileInputRef}
+        onChange={handleFileChange}
+      />
+      {/* Take a picture with a webcam */}
+      {showWebcam && (
         <div style={{ marginBottom: 10 }}>
           <Webcam
             audio={false}
@@ -127,47 +312,66 @@ export default function UploadImage() {
           />
           <button
             type="button"
-            style={{ marginTop: 8 }}
+            style={{ marginTop: 8, marginLeft: 8 }}
             onClick={handleTakePhoto}
           >
-            📸 Take Picture
+            📸 Take Photo
+          </button>
+          <button
+            type="button"
+            style={{ marginTop: 8 }}
+            onClick={() => setShowWebcam(false)}
+          >
+            Cancel
           </button>
         </div>
-      ) : (
-        <input
-          type="file"
-          accept="image/*"
-          onChange={handleFileChange}
-          required={!image}
-        />
       )}
 
-      {previewUrl && (
-        <div style={{ margin: "1em 0" }}>
-          <img
-            src={previewUrl}
-            alt="preview"
-            style={{ maxWidth: "220px", maxHeight: "220px", borderRadius: "8px" }}
-          />
-        </div>
+      {/* Mood Analysis Button */}
+      {image && !mood && (
+        <button type="submit" disabled={loading} style={{
+          background: "#1976d2",
+          color: "#fff",
+          border: "none",
+          borderRadius: "20px",
+          padding: "0.7em 1.5em",
+          fontSize: "1.1em",
+          cursor: "pointer",
+          marginTop: "1em"
+        }}>
+          {loading ? "...Uploading" : "Mood Analysis"}
+        </button>
       )}
 
-      <button type="submit" disabled={loading || !image}>
-        {loading ? "Uploading..." : "Analyze Mood"}
-      </button>
-
-      {mood && (
+      {/* Analysis results */}
+      {mood && showPlaylistsBtn && playlists.length === 0 && (
         <div style={{ marginTop: "1em" }}>
           <h3>Detected Mood: <b>{mood}</b></h3>
-          <button type="button" onClick={fetchPlaylistsByMood}>
-            Show Playlists
+          <button type="button" onClick={fetchPlaylistsByMood}
+            style={{
+              background: "#e3f2fd",
+              color: "#1976d2",
+              border: "2px solid #1976d2",
+              borderRadius: "20px",
+              padding: "0.5em 1em",
+              fontSize: "0.95em",
+              cursor: "pointer",
+              marginTop: "1em"
+            }}
+          >
+            Show playlists
           </button>
+        </div>
+      )}
+      {mood && !showPlaylistsBtn && playlists.length === 0 && (
+        <div style={{ marginTop: "1em" }}>
+          <h3>Detected Mood: <b>{mood}</b></h3>
         </div>
       )}
 
       {playlists.length > 0 && (
         <div style={{ marginTop: "2em" }}>
-          <h3>Matching Playlists:</h3>
+          <h3>Matching playlists</h3>
           {playlists.map((pl) => (
             <PlaylistDetails key={pl.id} playlist={pl} />
           ))}
@@ -179,7 +383,7 @@ export default function UploadImage() {
           <div className="modal-content">
             <h2 className="modal-title">Playlist Limit Reached</h2>
             <p className="modal-message">
-              Free users can only create up to 3 playlists.<br />
+              Free users can only create up to 3 playlists
               Upgrade to Pro for unlimited access.
             </p>
             <div className="modal-buttons">
@@ -199,7 +403,6 @@ export default function UploadImage() {
           </div>
         </div>
       )}
-
       {showImageLimitModal && (
         <div className="modal-overlay">
           <div className="modal-content">

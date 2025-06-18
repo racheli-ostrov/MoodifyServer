@@ -9,10 +9,6 @@ export default function Login() {
 
   useEffect(() => {
     if (user) navigate("/home");
-    //  window.history.pushState(null, "", window.location.href);
-  //   window.onpopstate = () => {
-  //   window.history.pushState(null, "", window.location.href);
-  // };
   }, [user]);
 
   return (
