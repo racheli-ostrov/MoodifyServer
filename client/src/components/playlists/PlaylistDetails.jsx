@@ -154,8 +154,6 @@ export default function PlaylistDetails({ playlist }) {
           <h4 style={{ textAlign: "center" }}>{currentSong.title}</h4>
           <YouTubePlayer videoUrl={currentSong.url} onEnd={handleNext} key={autoPlayTrigger} />
           <div style={{ display: "flex", justifyContent: "center", gap: "1em" }}>
-            <button className="show-songs-btn" type="button" onClick={stopAnyOtherPlayingVideo}>⏸️ stop</button>
-            <button className="show-songs-btn" type="button" onClick={() => document.querySelector('iframe')?.contentWindow?.postMessage('{"event":"command","func":"playVideo","args":""}', '*')}>▶️ play</button>
             <button className="show-songs-btn" type="button" onClick={handlePrev}>⏮️ back</button>
             <button className="show-songs-btn" type="button" onClick={handleNext}>⏭️ next</button>
           </div>
@@ -164,8 +162,8 @@ export default function PlaylistDetails({ playlist }) {
 
       {isPlaylistsPage && (user?.role === "pro") && (
         <div style={{ marginTop: "1em" }}>
-          <button type="button" onClick={() => setShowAdd(!showAdd)}>➕ Add Song</button>
-          <button type="button" onClick={() => setEditMode(!editMode)}>📝 Edit Playlist</button>
+          <button className="playlist-btn" type="button" onClick={() => setShowAdd(!showAdd)}>➕ Add Song</button>
+          <button className="playlist-btn" type="button" onClick={() => setEditMode(!editMode)}>📝 Edit Playlist</button>
         </div>
       )}
 
@@ -190,25 +188,31 @@ export default function PlaylistDetails({ playlist }) {
 
       <div style={{ marginTop: "2em" }}>
         <h4>Songs</h4>
-        <ul style={{ paddingLeft: "1em" }}>
+        <ul className={styles.songsList}>
           {songs.map(song => (
-            <li key={song.id}>
+            <li key={song.id} className={styles.songRow}>
               {editSongId === song.id ? (
                 <>
-                  <input value={editSong.title} onChange={e => setEditSong({ ...editSong, title: e.target.value })} />
-                  <input value={editSong.url} onChange={e => setEditSong({ ...editSong, url: e.target.value })} />
-                  <button type="button" onClick={handleSaveEditSong}>Save</button>
-                  <button type="button" onClick={() => setEditSongId(null)}>Cancel</button>
+                  <input
+                    className="minimal-input"
+                    value={editSong.url}
+                    onChange={e => setEditSong({ ...editSong, url: e.target.value })}
+                  />
+                  <input
+                    className="minimal-input"
+                    value={editSong.title}
+                    onChange={e => setEditSong({ ...editSong, title: e.target.value })}
+                  />
+                  <button className="playlist-btn" type="button" onClick={handleSaveEditSong}>Save</button>
+                  <button className="playlist-btn" type="button" onClick={() => setEditSongId(null)}>Cancel</button>
                 </>
               ) : (
                 <>
-                  {song.title}
-                  {isPlaylistsPage && (user?.role === "pro") && (
-                    <>
-                      <button type="button" onClick={() => handleEditSong(song)}>Edit</button>
-                      <button type="button" onClick={() => handleDeleteSong(song.id)}>Delete</button>
-                    </>
-                  )}
+                  <span className={styles.songActions}>
+                    <button className="playlist-btn" type="button" onClick={() => handleDeleteSong(song.id)}>Delete</button>
+                    <button className="playlist-btn" type="button" onClick={() => handleEditSong(song)}>Edit</button>
+                  </span>
+                  <span className={styles.songTitle}>{song.title}</span>
                 </>
               )}
             </li>

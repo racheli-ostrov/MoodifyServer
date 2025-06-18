@@ -35,10 +35,10 @@ export default function Home() {
 
       <main className="main-content colorful-bg">
         <div className="centered-content">
-          <h1>Hello, {user.name || user.username}!</h1>
-          <h1 className="main-title">How are you feeling today?</h1>
+          <h1>!Hello, {user.name || user.username}</h1>
+          <h1 className="main-title">?How are you feeling today</h1>
           <p className="subtitle">
-            Upload a photo and we'll create a playlist that matches your mood.
+            .Upload a photo and we'll create a playlist that matches your mood
           </p>
           <div className="upload-card">
             <UploadImage onPlaylistCreated={setPlaylist} />

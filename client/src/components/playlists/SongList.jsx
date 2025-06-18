@@ -12,7 +12,7 @@ export default function SongList({ songs, onEdit, onDelete, editable = false }) 
         const videoId = extractVideoId(song.url);
         return (
           <div key={song.id} className={styles.songCard}>
-            <div><strong>{song.title}</strong></div>
+            <div className={styles.songTitle}><strong>{song.title}</strong></div>
             {videoId ? (
               <iframe
                 width="100%"
@@ -26,9 +26,21 @@ export default function SongList({ songs, onEdit, onDelete, editable = false }) 
               <p>Video unavailable</p>
             )}
             {editable && (
-              <div className={styles.buttons}>
-                <button onClick={() => onEdit(song)}>Edit</button>
-                <button onClick={() => onDelete(song.id)}>Delete</button>
+              <div className={styles.songActionsRow}>
+                <button
+                  className="playlist-btn"
+                  type="button"
+                  onClick={() => onEdit(song)}
+                >
+                  Edit
+                </button>
+                <button
+                  className="playlist-btn"
+                  type="button"
+                  onClick={() => onDelete(song.id)}
+                >
+                  Delete
+                </button>
               </div>
             )}
           </div>
