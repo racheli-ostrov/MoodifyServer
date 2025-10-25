@@ -18,6 +18,9 @@
     "react-router-dom": "^7.6.2",
     "streamifier": "^0.1.1"
   },
+  "engines": {
+    "node": "20.x"
+  },
   "name": "server",
   "version": "1.0.0",
   "main": "server.js",
