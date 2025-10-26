@@ -4,4 +4,5 @@ services:
     env: node
     rootDir: server
     buildCommand: npm install
-    startCommand: node server.js
+    startCommand: npm start
+    plan: free
