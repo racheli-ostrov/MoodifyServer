@@ -1,5 +1,5 @@
 const usersService = require('../service/usersService');
-const bcrypt = require('bcrypt');
+const bcrypt = require("bcryptjs");
 const jwt = require('jsonwebtoken');
 const { sendWelcomeEmail } = require("../utils/sendMail");
 
