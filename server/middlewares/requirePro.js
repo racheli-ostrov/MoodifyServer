@@ -7,4 +7,5 @@ function requirePro(req, res, next) {
   }
 }
 
-module.exports = requirePro;
+// module.exports = requirePro;
+export default requirePro;
