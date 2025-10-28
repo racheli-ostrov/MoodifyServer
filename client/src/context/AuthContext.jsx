@@ -39,7 +39,7 @@ export function AuthProvider({ children }) {
   const googleLogin = async (token) => {
     try {
       const res = await api.post(
-        "/users/auth/google",
+        "/auth/google",
         { token },
         { withCredentials: true }
       );
