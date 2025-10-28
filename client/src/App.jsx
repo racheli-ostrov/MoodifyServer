@@ -24,7 +24,7 @@ function MainLayout({ children }) {
   );
 }
 
-console.log(import.meta.env); // בדיקה מה נטלפיי רואה בזמן ריצה
+console.log("✅ GOOGLE CLIENT ID:", import.meta.env.VITE_GOOGLE_CLIENT_ID);
 const clientId = import.meta.env.VITE_GOOGLE_CLIENT_ID;
 
 export default function App() {
