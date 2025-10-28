@@ -246,7 +246,7 @@
 //   if (!req.user) return res.status(401).json({ error: "Not authenticated" });
 //   res.json({ user: req.user });
 // };
-import * as usersService from "../service/usersService.js";
+import usersService from "../service/usersService.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { sendWelcomeEmail } from "../utils/sendMail.js";
