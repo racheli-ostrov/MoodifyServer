@@ -413,11 +413,11 @@ export const register = async (req, res) => {
     await newUser.save();
 
     // שליחת מייל ברוך הבא (אם יש)
-    // try {
-    //   await sendWelcomeEmail(email, name);
-    // } catch (mailErr) {
-    //   console.error("MAIL ERROR:", mailErr.message);
-    // }
+    try {
+      // await sendWelcomeEmail(email, name);
+    } catch (mailErr) {
+      console.error("MAIL ERROR:", mailErr.message);
+    }
 
     // יצירת טוקן
     const token = jwt.sign(
