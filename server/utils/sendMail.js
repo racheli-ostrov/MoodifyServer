@@ -66,7 +66,7 @@ export async function sendWelcomeEmail(email, name) {
           We've created a personalized experience just for you. Explore playlists based on your mood and discover music that matches how you feel.
         </p>
         <div style="text-align:center; margin:30px 0;">
-          <a href="http://localhost:5173/login" style="background-color:#6a5acd; color:#fff; text-decoration:none; padding:12px 24px; border-radius:30px; font-weight:bold; font-size:16px;">
+          <a href="https://moodifyserver.onrender.com/api/login" style="background-color:#6a5acd; color:#fff; text-decoration:none; padding:12px 24px; border-radius:30px; font-weight:bold; font-size:16px;">
             Go to My Account
           </a>
         </div>
