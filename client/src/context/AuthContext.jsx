@@ -46,7 +46,7 @@ export function AuthProvider({ children }) {
       setUser(res.data.user);
       return true;
     } catch (err) {
-      alert("Google Sign In Failed");
+      alert("Google Sign In Failed", error.message);
       return false;
     }
   };
