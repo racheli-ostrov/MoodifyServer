@@ -227,7 +227,8 @@ export async function googleLogin(req, res) {
         user: { id: user.id, username: user.username, role: user.role },
       });
   } catch (error) {
-    console.error("Google Login Error:", error.message);
+    console.error("Google Login Error:", error.response?.data || error.message || error);
     res.status(500).json({ error: "Google login failed" });
   }
+
 }

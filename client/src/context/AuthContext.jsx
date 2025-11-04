@@ -45,10 +45,11 @@ export function AuthProvider({ children }) {
       );
       setUser(res.data.user);
       return true;
-    } catch (err) {
-      alert("Google Sign In Failed", error.message);
-      return false;
-    }
+  } catch (error) {
+    console.error("Google Login Error:", error.response?.data || error.message || error);
+    res.status(500).json({ error: "Google login failed" });
+  }
+
   };
 
   const register = async (username, password, email, name) => {

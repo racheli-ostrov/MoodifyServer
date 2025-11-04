@@ -48,6 +48,8 @@ export default function LoginForm() {
         <GoogleLogin
           onSuccess={async (credentialResponse) => {
             const token = credentialResponse.credential;
+            console.log("🟢 Google Token:", token);
+
             const success = await googleLogin(token,{ withCredentials: true });
             if (success) navigate("/home");
           }}
