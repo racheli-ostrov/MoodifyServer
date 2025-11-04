@@ -250,12 +250,26 @@ const app = express();
 const allowedOrigins = [
   "http://localhost:5173",
   "https://moodify-ashy-chi.vercel.app",
+  "https://moodify-do1vvqqfh-rachelis-projects-0bf03696.vercel.app",
+   /\.vercel\.app$/,
 ];
 
 app.use(
   cors({
     origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
+      const allowedOrigins = [
+        "http://localhost:5173",
+        "https://moodify-ashy-chi.vercel.app",
+        /\.vercel\.app$/, // מאפשר כל דומיין של vercel.app
+      ];
+
+      // אם אין origin (למשל בבדיקות Postman) או שהוא מותר — מאשר
+      if (
+        !origin ||
+        allowedOrigins.some((o) =>
+          typeof o === "string" ? o === origin : o.test(origin)
+        )
+      ) {
         callback(null, true);
       } else {
         console.log("❌ Blocked by CORS:", origin);
@@ -265,6 +279,7 @@ app.use(
     credentials: true,
   })
 );
+
 
 console.log("✅ CORS configured for:", allowedOrigins.join(", "));
 
