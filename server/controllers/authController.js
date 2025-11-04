@@ -234,7 +234,8 @@
 // }
 import { OAuth2Client } from "google-auth-library";
 import jwt from "jsonwebtoken";
-import User from "../../models/User.js"; // ← לוודא שקיים הקובץ הזה
+import User from "../models/User.js";
+
 
 // יצירת לקוח Google
 const client = new OAuth2Client(process.env.VITE_GOOGLE_CLIENT_ID);
