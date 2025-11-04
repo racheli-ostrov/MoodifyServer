@@ -39,7 +39,7 @@ const RequireAuth = ({ children }) => {
 
 
   return (
-    <GoogleOAuthProvider clientId={clientId}>
+    <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
       <Router>
         <Routes>
           <Route path="/login" element={<Login />} />
