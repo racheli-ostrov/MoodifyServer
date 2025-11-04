@@ -226,17 +226,19 @@ import { fileURLToPath } from "url";
 import mongoose from "mongoose";
 
 dotenv.config();
+console.log("GOOGLE_CLIENT_ID:", process.env.GOOGLE_CLIENT_ID);
+console.log("GOOGLE_CLIENT_SECRET:", process.env.GOOGLE_CLIENT_SECRET);
+console.log("VITE_GOOGLE_CLIENT_ID:", process.env.VITE_GOOGLE_CLIENT_ID);
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// ✅ חיבור למסד הנתונים
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => console.log("✅ Connected to MongoDB Atlas"))
   .catch((err) => console.error("❌ MongoDB connection error:", err));
 
-// ✅ ייבוא הראוטים
 import usersRoutes from "./routes/users.js";
 import imagesRoutes from "./routes/images.js";
 import playlistsRoutes from "./routes/playlists.js";
@@ -246,7 +248,6 @@ import paypalRoutes from "./routes/payPal.js";
 
 const app = express();
 
-// ✅ הגדרת CORS
 const allowedOrigins = [
   "http://localhost:5173",
   "https://moodify-ashy-chi.vercel.app",
@@ -283,12 +284,10 @@ app.use(
 
 console.log("✅ CORS configured for:", allowedOrigins.join(", "));
 
-// ✅ מידלווארים
 app.use(express.json());
 app.use(cookieParser());
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-// ✅ ראוטים
 app.use("/api/upload", uploadRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/users", usersRoutes);
@@ -296,9 +295,7 @@ app.use("/api/images", imagesRoutes);
 app.use("/api/playlists", playlistsRoutes);
 app.use("/api/paypal", paypalRoutes);
 
-// ✅ ברירת מחדל
 app.get("/", (req, res) => res.send("Moodify API - Backend is live ✅"));
 
-// ✅ הרצת השרת
 const PORT = process.env.PORT || 10000;
 app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
